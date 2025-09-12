@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="🌍GlobeWay - Personaliza tu viaje y prepárate en el idioma local. Planifica y aprende para vivir experiencias únicas."
+    />
+    <title>Academia Educativa</title>
+    <link rel="stylesheet" href="estilos-comunes.css" />
+    <style>
+      :root {
+        --cta: #0d509c;
+        --cta-hover: #08386d;
+        --text-dark: #222;
+        --text-light: #555;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, sans-serif;
+        color: var(--text-dark);
+        line-height: 1.6;
+      }
+
+      /* Hero */
+      .hero {
+        position: relative;
+        background: url("https://i.pinimg.com/736x/72/e2/74/72e274cb4cf8dc48d0fa7bf8e851daea.jpg")
+          no-repeat center center;
+        background-size: cover;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+        padding: 2rem;
+        margin-top: 0;
+        /* Asegura que no quede espacio extra */
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(rgba(0, 0, 50, 0.6), rgba(0, 0, 50, 0.6));
+      }
+
+      .hero .contenido {
+        position: relative;
+        z-index: 1;
+        max-width: 650px;
+        padding: 1rem;
+        animation: fadeInUp 1.2s ease;
+      }
+
+      .hero h1 {
+        font-size: clamp(2rem, 5vw, 3rem);
+        margin-bottom: 1rem;
+        font-weight: 700;
+      }
+
+      .hero p {
+        font-size: clamp(1rem, 2vw, 1.3rem);
+        margin-bottom: 1.2rem;
+      }
+
+      .boton-explorar {
+        background: var(--cta);
+        color: white;
+        padding: 14px 28px;
+        border-radius: 999px;
+        font-weight: bold;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+      }
+
+      .boton-explorar:hover {
+        background: var(--cta-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Animación entrada */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Misión y Visión */
+      .mision-vision {
+        background: #f8fbff;
+        padding: 5rem 2rem;
+      }
+
+      .contenedor-mv {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .tarjeta {
+        background: #fff;
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        flex: 1 1 320px;
+        max-width: 480px;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .tarjeta:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+      }
+
+      .tarjeta h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: #0d509c;
+      }
+
+      .tarjeta p {
+        font-size: 1.1rem;
+        color: var(--text-light);
+        line-height: 1.7;
+      }
+
+      /* Footer */
+      footer {
+        background: #0d509c;
+        color: white;
+        text-align: center;
+        padding: 2rem 1rem;
+      }
+
+      footer img {
+        height: 40px;
+        margin-bottom: 10px;
+      }
+
+      footer p {
+        font-size: 0.95rem;
+        margin: 0;
+      }
+      /* Botón Encuesta */
+      .boton-encuesta {
+        background: #ff6600;
+        color: white;
+        padding: 14px 32px;
+        border-radius: 12px;
+        font-weight: bold;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        font-size: 1.1rem;
+      }
+
+      .boton-encuesta:hover {
+        background: #e05500;
+        transform: scale(1.05);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="logo">🌍GlobeWay</div>
+      <div class="logo">
+        <img src="imagenes/logo.jpg" alt="🌍GlobeWay" />
+      </div>
+      <!-- Botón hamburguesa (solo en móvil) -->
+      <div class="menu-toggle" id="menu-toggle">☰</div>
+
+      <!-- Menú de navegación -->
+      <nav>
+        <ul id="menu">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="Planificador.html">Planificador</a></li>
+          <li><a href="Cursosdeidiomas.html">Cursos de Idiomas</a></li>
+          <li><a href="Blog.html">Blog</a></li>
+          <li><a href="Contactos.html">Contactos</a></li>
+          <li><a href="iniciarsesion.html" class="btn">Iniciar sesión</a></li>
+          <li>
+            <a href="registrarte.html" class="btn registro">Registrarse</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="contenido">
+          <h1>Personaliza tu viaje y prepárate en el idioma local</h1>
+          <p>Diseña tu viaje ideal y empieza a hablar como un local</p>
+          <p>Viajes personalizados + cursos básicos de idiomas</p>
+          <a href="#" class="boton-explorar">Explorar ahora</a>
+        </div>
+      </section>
+
+      <section class="mision-vision">
+        <div class="contenedor-mv">
+          <div class="tarjeta">
+            <h2>Misión</h2>
+            <p>
+              Nuestra misión es ofrecer experiencias de viaje personalizadas con
+              formación en idiomas que permitan una inmersión real en la cultura
+              del destino. Nos enfocamos en que cada viajero viva una
+              experiencia auténtica, segura y enriquecedora.
+            </p>
+          </div>
+          <div class="tarjeta">
+            <h2>Visión</h2>
+            <p>
+              Ser la plataforma líder en educación y planificación de viajes,
+              promoviendo el aprendizaje y la comprensión intercultural a nivel
+              global. Aspiramos a inspirar a las personas a explorar el mundo,
+              aprender nuevas lenguas y valorar la diversidad cultural.
+            </p>
+          </div>
+        </div>
+        <!-- 🔽 Botón Encuesta -->
+        <div style="text-align: center; margin-top: 3rem">
+          <a href="encuesta.html" class="boton-encuesta"
+            >📋 Responder Encuesta</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Globe_icon.svg/1024px-Globe_icon.svg.png"
+        alt="Logo GlobeWay"
+      />
+      <p>🌍GlobeWay — Conectando culturas, creando experiencias.</p>
+    </footer>
+    <!-- Script para abrir/cerrar menú en móviles -->
+    <script>
+      const toggle = document.getElementById("menu-toggle");
+      const menu = document.getElementById("menu");
+
+      toggle.addEventListener("click", () => {
+        menu.classList.toggle("show");
+      });
+      let lastScroll = 0;
+      const header = document.querySelector("header");
+      // Detecta el scroll para ocultar o mostrar el menú//
+      window.addEventListener("scroll", () => {
+        let currentScroll = window.pageYOffset;
+
+        if (currentScroll > lastScroll) {
+          // Bajando → ocultar menú
+          header.classList.add("hidden");
+        } else {
+          // Subiendo → mostrar menú
+          header.classList.remove("hidden");
+        }
+
+        lastScroll = currentScroll;
+      });
+    </script>
+  </body>
+</html>

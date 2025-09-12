@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Planificador de Viajes - GlobeWay</title>
+    <link rel="stylesheet" href="estilos-comunes.css" />
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background-color: #ffffff;
+        margin: 0;
+        padding: 0;
+        color: #333;
+      }
+
+      /* CONTENEDOR PRINCIPAL */
+      .contenedor {
+        padding: 2rem;
+        max-width: 900px;
+        margin: auto;
+        text-align: center;
+      }
+      h1 {
+        color: #0f4d92;
+        margin-bottom: 1.5rem;
+      }
+      form {
+        background-color: #f1f1f1;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        text-align: left;
+      }
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+      }
+      input[type="text"],
+      input[type="number"],
+      select,
+      textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      .checkboxes label {
+        display: inline-block;
+        margin-right: 15px;
+        font-weight: normal;
+      }
+      .boton {
+        background-color: #f57c00;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        margin-top: 1rem;
+      }
+      .boton:hover {
+        background-color: #e86c00;
+      }
+      .resultado {
+        margin-top: 2rem;
+        background-color: #e3f2fd;
+        padding: 1.5rem;
+        border-radius: 8px;
+        text-align: left;
+      }
+      .resultado h3 {
+        color: #0f4d92;
+        margin-top: 0;
+      }
+      .acciones {
+        margin-top: 1.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .acciones button {
+        padding: 10px 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+      .guardar {
+        background-color: #0f4d92;
+        color: white;
+      }
+      .pdf {
+        background-color: #f57c00;
+        color: white;
+      }
+      .compartir {
+        background-color: #4caf50;
+        color: white;
+      }
+      @media (max-width: 768px) {
+        .acciones {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+  <div class="logo">🌍GlobeWay</div>
+  <div class="logo">
+      <img src="imagenes/logo.jpg" alt="🌍GlobeWay">
+    </div>
+  <div class="menu-toggle" onclick="document.querySelector('nav ul').classList.toggle('show')">
+    ☰
+  </div>
+  <nav>
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="Planificador.html">Planificador</a></li>
+      <li><a href="Cursosdeidiomas.html">Cursos de Idiomas</a></li>
+      <li><a href="Blog.html">Blog</a></li>
+      <li><a href="Contactos.html">Contactos</a></li>
+      <li><a href="iniciarsesion.html" class="btn">Iniciar sesión</a></li>
+      <li><a href="registrarte.html" class="btn registro">Registrarse</a></li>
+    </ul>
+  </nav>
+</header>
+    <div class="contenedor">
+      <h1>Planificador de Viajes</h1>
+      <form>
+        <label for="destino">Destino</label>
+        <input
+          type="text"
+          id="destino"
+          placeholder="Ej: París, Berlín, Lima..."
+        />
+
+        <label for="presupuesto">Presupuesto (USD)</label>
+        <input type="number" id="presupuesto" placeholder="Ej: 1000" />
+
+        <!-- NUEVO CAMPO DE MONEDA -->
+        <label for="moneda">Tipo de Moneda</label>
+        <select id="moneda">
+          <option value="">Seleccione una moneda</option>
+          <option value="EUR">Euro (€)</option>
+          <option value="MXN">Peso mexicano (MX$)</option>
+          <option value="PEN">Sol peruano (S/)</option>
+          <option value="USD">Dólar estadounidense ($)</option>
+          <option value="CLP">Peso chileno (CLP$)</option>
+          <option value="ARS">Peso argentino (AR$)</option>
+        </select>
+        <!-- FIN DEL NUEVO CAMPO -->
+
+        <label for="dias">Días de viaje</label>
+        <input type="number" id="dias" placeholder="Ej: 7" />
+
+        <label>Intereses</label>
+        <div class="checkboxes">
+          <label><input type="checkbox" /> Cultura</label>
+          <label><input type="checkbox" /> Aventura</label>
+          <label><input type="checkbox" /> Comida</label>
+          <label><input type="checkbox" /> Relax</label>
+        </div>
+        <button type="submit" class="boton">Generar Itinerario</button>
+      </form>
+      <div class="resultado">
+        <h3>Itinerario Sugerido</h3>
+        <p>
+          <strong>Lugares recomendados:</strong> Torre Eiffel, Museos, Mercado
+          local.
+        </p>
+        <p><strong>Presupuesto estimado:</strong> $900</p>
+        <p><strong>Clima estimado:</strong> 22°C, parcialmente nublado ☁️</p>
+        <p>
+          <strong>Consejos locales:</strong> Compra entradas con anticipación.
+          Aprende frases básicas en francés.
+        </p>
+        <p><strong>Mapa:</strong> (Aquí irá un mapa interactivo)</p>
+        <div class="acciones">
+          <button class="guardar">Guardar itinerario</button>
+          <button class="pdf">Descargar PDF</button>
+          <button class="compartir">Compartir</button>
+        </div>
+      </div>
+    </div>
+  <!---Detectar scroll hacia abajo para ocultar el menú--->
+    <script>
+  let lastScroll = 0;
+  const header = document.querySelector("header");
+
+  window.addEventListener("scroll", () => {
+    let currentScroll = window.pageYOffset;
+
+    if (currentScroll > lastScroll) {
+      // Bajando → ocultar menú
+      header.classList.add("hidden");
+    } else {
+      // Subiendo → mostrar menú
+      header.classList.remove("hidden");
+    }
+
+    lastScroll = currentScroll;
+  });
+</script>
+
+  </body>
+</html>

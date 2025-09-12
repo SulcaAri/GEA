@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog de Viajes</title>
+    <link rel="stylesheet" href="estilos-comunes.css">
+  <style> 
+    :root {
+      --celeste: #0073e6;
+      --naranja: #ff6600;
+      --blanco: #ffffff;
+      --negro: #333333;
+      --azul: #003366;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('https://static.nationalgeographicla.com/files/styles/image_3200/public/nationalgeographic_2670050crop.webp?w=1600&h=900');
+      background-size: cover;
+      background-attachment: fixed;
+      color: var(--negro);
+    }
+
+    /* --- Título principal --- */
+    h1 {
+      text-align: center;
+      margin: 100px 20px 20px; /* 100px para que no lo tape el menú */
+      color: var(--blanco);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    }
+
+    /* --- Cuerpo con artículos --- */
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .article {
+      width: 320px;
+      margin: 15px;
+      padding: 15px;
+      border: 3px solid var(--naranja);
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .article:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    }
+
+    .article img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .article h2 {
+      color: var(--azul);
+      margin-bottom: 10px;
+    }
+
+    .article h3 {
+      margin-top: 15px;
+      color: var(--naranja);
+    }
+
+    .article p, .article li {
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background-color: rgba(0, 51, 102, 0.9);
+      color: var(--blanco);
+    }
+  </style>
+</head>
+<body>
+  <!-- Header sin estilos (puro HTML) -->
+  <header>
+    <div class="logo">🌍GlobeWay</div>
+    <div class="logo">
+      <img src="imagenes/logo.jpg" alt="🌍GlobeWay">
+    </div>
+    <div class="menu-toggle" onclick="document.querySelector('nav ul').classList.toggle('show')">
+      ☰
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="Planificador.html">Planificador</a></li>
+        <li><a href="Cursosdeidiomas.html">Cursos de Idiomas</a></li>
+        <li><a href="Blog.html">Blog</a></li>
+        <li><a href="Contactos.html">Contactos</a></li>
+        <li><a href="iniciarsesion.html">Iniciar sesión</a></li>
+        <li><a href="registrarte.html">Registrarse</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Título -->
+  <h1>Descubre el Mundo: Tu Blog de Viajes</h1>
+
+  <div class="container">
+    <section id="tips" class="article">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRb5iw052l5KkY_rR_zE2fYbhBgo_BbGeOtuQ&s" alt="Imagen de tips de viaje">
+      <h2>Tips de Viaje</h2>
+      <ul>
+        <li>Empaca inteligentemente: lleva solo lo esencial.</li>
+        <li>Investiga el clima de tu destino.</li>
+        <li>Aprende algunas frases básicas en el idioma local.</li>
+        <li>Reserva vuelos y alojamientos con anticipación.</li>
+        <li>Lleva un adaptador de corriente universal.</li>
+        <h3>✈️ Antes del viaje</h3>
+        <li>Investiga tu destino: Cultura, clima, costumbres, moneda.</li>
+        <li>Revisa si necesitas visa o vacunas obligatorias.</li>
+        <li>Seguro de viaje.</li>
+        <h3>🎒 Empaque inteligente</h3>
+        <li>Aplica la regla 80/20: lleva solo lo que usarás.</li>
+        <li>Piensa en capas si viajas a climas variables.</li>
+        <li>Lleva botiquín básico de viaje.</li>
+        <h3>🌍 Durante el viaje</h3>
+        <li>Usa apps útiles (Google Maps offline, Translate).</li>
+      </ul>
+      <img src="https://media.revistagq.com/photos/5ed5285ef95b900ced636e6d/1:1/w_4016,h_4016,c_limit/GettyImages-619394704.jpg" alt="">
+    </section>
+
+    <section id="cultura" class="article">
+      <img src="https://www.captio.net/hs-fs/hub/260057/file-2104835308-jpg/Imatges/Viajes_de_empresa_relajar.jpg" alt="Imagen de cultura de destino">
+      <h2>Cultura de los Países Destino</h2>
+      <p>Explora la rica diversidad cultural de cada país...</p>
+      <p>India, Brasil, México, Perú, Colombia, Canadá, Bolivia, Argentina, EE.UU...</p>
+    </section>
+
+    <section id="idiomas" class="article">
+      <img src="https://img.freepik.com/foto-gratis/aventura-viaje-equipaje_23-2149153255.jpg" alt="Imagen de idiomas">
+      <h2>Recomendaciones para Idiomas</h2>
+      <ul>
+        <li>No tengas miedo de cometer errores.</li>
+        <li>Practica con hablantes nativos.</li>
+        <li>Usa apps y diccionarios offline.</li>
+        <li>Sumérgete en la cultura con música y películas.</li>
+      </ul>
+    </section>
+  </div>
+
+  <footer>
+    <p>&copy; Tu Blog de Viajes</p>
+  </footer>
+  <script>
+  let lastScroll = 0;
+  const header = document.querySelector("header");
+
+  window.addEventListener("scroll", () => {
+    let currentScroll = window.pageYOffset;
+
+    if (currentScroll > lastScroll) {
+      // Bajando → ocultar menú
+      header.classList.add("hidden");
+    } else {
+      // Subiendo → mostrar menú
+      header.classList.remove("hidden");
+    }
+
+    lastScroll = currentScroll;
+  });
+</script>
+</body>
+</html>

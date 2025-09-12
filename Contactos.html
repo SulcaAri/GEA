@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Contáctanos - 🌍GlobeWay">
+  <title>Contacto - GlobeWay</title>
+  <link rel="stylesheet" href="estilos-comunes.css">
+  <style>
+    :root {
+      --brand: #267ee2;
+      --accent: #ffd900;
+      --accent-text: #1a78e4;
+      --cta: #f57c00;
+      --cta-hover: #e86c00;
+      --text: #333;
+      --surface: #fff;
+      --header-h: 72px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      color: var(--text);
+      line-height: 1.6;
+      padding-top: var(--header-h);
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+      transition: color 0.3s ease, background-color 0.3s ease;
+    }
+
+    a:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    /* Header */
+    header {
+      background-color: var(--brand);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      height: var(--header-h);
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    nav a {
+      color: white;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .btn {
+      border: 1px solid white;
+      padding: 6px 12px;
+      border-radius: 5px;
+    }
+
+    .registro {
+      background-color: var(--accent);
+      color: var(--accent-text);
+      border: none;
+    }
+
+    /* Contacto */
+    #contacto {
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f0f7ff;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      color: #003366;
+    }
+
+    #contacto h2 {
+      text-align: center;
+      color: var(--cta);
+      margin-bottom: 30px;
+      font-weight: 700;
+      font-size: 2.5rem;
+    }
+
+    form {
+      margin-bottom: 40px;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(255, 102, 0, 0.3);
+    }
+
+    form h3 {
+      color: var(--brand);
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid var(--cta);
+      border-radius: 8px;
+      margin-bottom: 15px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+
+    button {
+      background: var(--cta);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(255,102,0,0.5);
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: var(--cta-hover);
+    }
+
+    /* Bloques de información */
+    .info-bloque {
+      margin-bottom: 40px;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .info-bloque h3 {
+      color: var(--brand);
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .info-bloque a {
+      color: var(--cta);
+    }
+
+    /* Calificación */
+    #stars {
+      font-size: 2.5rem;
+      cursor: pointer;
+      user-select: none;
+      color: #aaa;
+      display: inline-block;
+    }
+
+    footer {
+      background-color: #0d509c;
+      color: white;
+      text-align: center;
+      padding: 1rem 0;
+    }
+
+    @media (max-width: 900px) {
+  nav {
+    position: relative; /* Para que el UL se posicione respecto al nav */
+  }
+
+  nav ul {
+    position: absolute;
+    top: 100%; /* justo debajo del nav */
+    right: 0;
+    left: auto; /* solo se despliega desde la derecha */
+    width: 200px; /* ancho del menú desplegable */
+    background: #0d509c;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+    border-radius: 0 0 8px 8px;
+    display: none;
+  }
+  nav ul.show {
+    display: flex;
+  }
+}
+  </style>
+</head>
+<body>
+<header>
+  <div class="logo">
+    <img src="imagenes/logo.jpg" alt="GlobeWay" style="width:50px; height:50px; border-radius:50%; vertical-align:middle; margin-right:8px;">
+    GlobeWay
+  </div>
+  <!-- Botón hamburguesa -->
+  <div class="menu-toggle" id="menu-toggle">☰</div>
+  <!-- Menú -->
+  <nav>
+    <ul id="menu">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="Planificador.html">Planificador</a></li>
+      <li><a href="Cursosdeidiomas.html">Cursos de Idiomas</a></li>
+      <li><a href="Blog.html">Blog</a></li>
+      <li><a href="Contactos.html">Contactos</a></li>
+      <li><a href="iniciarsesion.html">Iniciar sesión</a></li>
+      <li><a href="registrarte.html">Registrarse</a></li>
+    </ul>
+  </nav>
+</header>
+  <div style="margin-top:120px;"></div>
+    <section id="contacto" style="max-width: 700px; margin: 40px auto; padding: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f7ff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); color: #003366;">
+  <h2 style="text-align: center; color: #FF6600; margin-bottom: 30px; font-weight: 700; font-size: 2.5rem;">Contacto</h2>
+
+  <!-- Formulario de Contacto -->
+  <form id="contactForm" style="margin-bottom: 40px; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 3px 10px rgba(255, 102, 0, 0.3);">
+    <h3 style="color: #0073e6; 
+    margin-bottom: 15px; 
+    font-weight: 600;">Envíanos un mensaje</h3>
+
+    <label for="name" style="display: block; 
+    margin-bottom: 6px; 
+    font-weight: 600;">Nombre:</label>
+
+    <input type="text" id="name" name="name" placeholder="Tu nombre" required
+      style="width: 100%; 
+      padding: 10px; border: 
+      2px solid #FF6600; border-radius: 
+      8px; margin-bottom: 15px; 
+      font-size: 1rem; 
+      transition: border-color 0.3s;">
+    
+      <!-- Fromulario de gmail -->
+    <label for="email" style="display: block; 
+    margin-bottom: 6px; 
+    font-weight: 600;">Correo electrónico:</label>
+
+    <input type="email" id="email" name="email" placeholder="nombre@email.com" required
+      style="width: 100%; 
+      padding: 10px; 
+      border: 2px solid #FF6600; 
+      border-radius: 8px; 
+      margin-bottom: 15px; 
+      font-size: 1rem; 
+      transition: border-color 0.3s;">
+
+      <!-- Para comentar  -->
+    <label for="message" 
+    style="display: block; 
+    margin-bottom: 6px; 
+    font-weight: 600;">Mensaje:</label>
+    <textarea id="message" name="message" rows="5" placeholder="Escribe tu mensaje aquí..." required
+      style="width: 100%; 
+      padding: 10px; 
+      border: 2px solid #FF6600; 
+      border-radius: 8px; 
+      margin-bottom: 15px; 
+      font-size: 1rem; 
+      resize: vertical; 
+      transition: border-color 0.3s;"></textarea>
+
+      <!-- Boton de enviar -->
+    <button type="submit"
+      style="background: #FF6600; 
+      color: white; 
+      border: none; 
+      padding: 12px 25px; 
+      border-radius: 30px; 
+      font-weight: 700; 
+      font-size: 1.1rem; 
+      cursor: pointer; 
+      box-shadow: 0 4px 10px rgba(255,102,0,0.5); 
+      transition: background 0.3s;">
+      Enviar
+    </button>
+  </form>
+
+  <!-- Información de Soporte -->
+  <div id="soporte" 
+  style="margin-bottom: 40px;
+  background: white;
+   padding: 20px; 
+   border-radius: 10px; 
+   box-shadow: 0 3px 10px rgba(0, 115, 230, 0.2);">
+    <h3 style="color: #0073e6; 
+    margin-bottom: 15px; 
+    font-weight: 600;">Información de Soporte</h3>
+    <p><strong>Correo de soporte:</strong> <a href="https://mail.google.com/mail/?view=cm&fs=1&to=globeway4@gmail.com" target="_blank" style="color: #FF6600; text-decoration: none;">globeway4@gmail.com</a></p>
+    <p><strong>Teléfono:</strong> 
+      <a href="tel: +51 902 540 117" 
+      style="color: #FF6600; 
+      text-decoration: none;">+51 902 540 117
+      </a></p>
+    <p style="color: #FF6600;">
+      <strong style="color: #003366;">Horario de atención:</strong> 
+      Lunes a Viernes, 9:00 AM - 6:00 PM 
+    </p>
+  </div>
+
+  <!-- Preguntas Frecuentes -->
+  <div id="faq" style="margin-bottom: 40px; 
+  background: white; 
+  padding: 20px; 
+  border-radius: 10px; 
+  box-shadow: 0 3px 10px rgba(0, 115, 230, 0.15);">
+
+    <h3 style="color: #0073e6; margin-bottom: 15px; font-weight: 600;">Preguntas Frecuentes</h3>
+    <details style="margin-bottom: 15px; border-left: 4px solid #FF6600; padding-left: 12px; cursor: pointer; transition: background 0.3s;">
+      <summary style="font-weight: 600; font-size: 1.1rem;">¿Cómo personalizo mi itinerario?</summary>
+      
+      <p style="margin-top: 6px; color: #333;">Personaliza tu itinerario completando el formulario del "Planificador de Viajes" con tu destino, fechas, presupuesto, tipo de alojamiento, transporte, intereses y necesidades especiales. Recibirás un plan detallado y adaptado a tu estilo de viaje, con actividades, recomendaciones y opciones flexibles para que disfrutes una experiencia totalmente a tu medida.</p>
+    </details>
+
+    <details style="margin-bottom: 15px; 
+    border-left: 4px solid #FF6600; 
+    Padding-left: 12px;
+     cursor: pointer; 
+     transition: background 0.3s;">
+
+      <summary style="font-weight: 600; 
+      font-size: 1.1rem;">¿Qué nivel de idiomas puedo aprender aquí?</summary>
+      <p style="margin-top: 6px; color: #333;">Ofrecemos cursos básicos para principiantes en inglés, alemán y francés, diseñados especialmente para quienes desean viajar. Nuestro enfoque práctico incluye vocabulario útil, frases comunes, situaciones reales en aeropuertos, hoteles y restaurantes, así como consejos culturales. Ideal para quienes buscan comunicarse con confianza durante sus viajes y aprovechar al máximo su experiencia internacional.</p>
+
+</p>
+    </details>
+
+    <details style="margin-bottom: 15px; 
+    border-left: 4px solid #FF6600; 
+    padding-left: 12px; 
+    cursor: pointer; 
+    transition: background 0.3s;">
+
+      <summary style="font-weight: 600; font-size: 1.1rem;">¿Puedo descargar mis itinerarios y certificados?</summary>
+      <p style="margin-top: 6px; color: #333;">Sí, puedes descargar fácilmente tus itinerarios personalizados y certificados desde tu perfil una vez que hayas iniciado sesión en la plataforma. Los archivos estarán disponibles en formato PDF para que los guardes, imprimas o consultes cuando los necesites, facilitando la organización de tus viajes y el registro de tu aprendizaje.
+</p>
+    </details>
+  </div>
+
+  <!-- Calificación de la Página -->
+  <div id="calificacion" style="margin-bottom: 40px; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 3px 10px rgba(255, 102, 0, 0.25); text-align: center;">
+    <h3 style="color: #0073e6; margin-bottom: 15px; font-weight: 600;">Califica nuestra página</h3>
+    <p style="margin-bottom: 10px; font-weight: 600;">¿Qué te parece nuestra web?</p>
+    <div id="stars" style="font-size: 2.5rem; cursor: pointer; user-select: none; color: #aaa; display: inline-block;">
+      <span data-value="1">&#9734;</span>
+      <span data-value="2">&#9734;</span>
+      <span data-value="3">&#9734;</span>
+      <span data-value="4">&#9734;</span>
+      <span data-value="5">&#9734;</span>
+    </div>
+    <p id="ratingResult" style="margin-top: 15px; font-weight: 700; color: #FF6600;"></p>
+  </div>
+</section>
+
+<script>
+  // Manejo del menú hamburguesa//
+  document.getElementById("menu-toggle").addEventListener("click", function() {
+    document.getElementById("menu").classList.toggle("show");
+    });
+  // Manejo simple del formulario (previene envío real para demo)
+  document.getElementById('contactForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    alert('Gracias por contactarnos, responderemos pronto.');
+    this.reset();
+  });
+
+  // Sistema de calificación con estrellas
+  const stars = document.querySelectorAll('#stars span');
+  const ratingResult = document.getElementById('ratingResult');
+  let currentRating = 0;
+
+  stars.forEach(star => {
+    star.addEventListener('click', () => {
+      currentRating = star.getAttribute('data-value');
+      updateStars(currentRating);
+      ratingResult.textContent = `Has calificado con ${currentRating} estrella${currentRating > 1 ? 's' : ''}. ¡Gracias!`;
+    });
+    star.addEventListener('mouseover', () => {
+      updateStars(star.getAttribute('data-value'));
+    });
+    star.addEventListener('mouseout', () => {
+      updateStars(currentRating);
+    });
+  });
+
+  function updateStars(rating) {
+    stars.forEach(star => {
+      star.textContent = star.getAttribute('data-value') <= rating ? '★' : '☆';
+      star.style.color = star.getAttribute('data-value') <= rating ? '#FF6600' : '#aaa';
+      star.style.transition = 'color 0.3s ease';
+    });
+  }
+  // Detectar scroll hacia abajo para ocultar el menú
+  let lastScroll = 0;
+  const header = document.querySelector("header");
+  window.addEventListener("scroll", () => {
+    let currentScroll = window.pageYOffset;
+    if (currentScroll > lastScroll) {
+      // Bajando → ocultar menú
+      header.classList.add("hidden");
+    } else {
+      // Subiendo → mostrar menú
+      header.classList.remove("hidden");
+    }
+    lastScroll = currentScroll;
+  });
+</script>
+</body>
+</html>

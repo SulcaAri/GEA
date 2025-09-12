@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clase de Prueba de Inglés</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #3d9aec, #00f2fe);
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #0077b6;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    section {
+      max-width: 700px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .exercise {
+      background: white;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    button {
+      background-color: #0077b6;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #023e8a;
+    }
+
+    .feedback {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>Clase de Prueba de Inglés - Nivel Básico</header>
+
+  <section>
+    <div class="exercise">
+      <h3>1. Elige la traducción correcta de "Dog":</h3>
+      <select id="q1">
+        <option value="">--Selecciona--</option>
+        <option value="perro">Perro</option>
+        <option value="gato">Gato</option>
+        <option value="pájaro">Pájaro</option>
+      </select>
+      <button onclick="checkQ1()">Comprobar</button>
+      <div class="feedback" id="f1"></div>
+    </div>
+
+    <div class="exercise">
+      <h3>2. Completa la frase: "I __ happy."</h3>
+      <input type="text" id="q2" placeholder="Escribe la palabra...">
+      <button onclick="checkQ2()">Comprobar</button>
+      <div class="feedback" id="f2"></div>
+    </div>
+
+    <div class="exercise">
+      <h3>3. Ordena las palabras para formar la frase: "Yo soy estudiante".</h3>
+      <p>student / am / I</p>
+      <input type="text" id="q3" placeholder="Escribe aquí...">
+      <button onclick="checkQ3()">Comprobar</button>
+      <div class="feedback" id="f3"></div>
+    </div>
+
+    <button onclick="finalScore()">Ver Resultado Final</button>
+    <div class="feedback" id="final"></div>
+  </section>
+
+  <script>
+    let score = 0;
+    let q1Checked = false, q2Checked = false, q3Checked = false;
+
+    function checkQ1(){
+      let ans = document.getElementById("q1").value;
+      let feedback = document.getElementById("f1");
+      if(ans === "perro"){
+        feedback.textContent = "✅ Correcto";
+        feedback.style.color = "green";
+        if (!q1Checked) {
+          score++;
+          q1Checked = true;
+        }
+      } else {
+        feedback.textContent = "❌ Incorrecto";
+        feedback.style.color = "red";
+      }
+    }
+
+    function checkQ2(){
+      let ans = document.getElementById("q2").value.trim().toLowerCase();
+      let feedback = document.getElementById("f2");
+      if(ans === "am"){
+        feedback.textContent = "✅ Correcto";
+        feedback.style.color = "green";
+        if (!q2Checked) {
+          score++;
+          q2Checked = true;
+        }
+      } else {
+        feedback.textContent = "❌ Incorrecto";
+        feedback.style.color = "red";
+      }
+    }
+
+    function checkQ3(){
+      let ans = document.getElementById("q3").value.trim().toLowerCase();
+      let feedback = document.getElementById("f3");
+      if(ans === "i am student" || ans === "i am a student"){
+        feedback.textContent = "✅ Correcto";
+        feedback.style.color = "green";
+        if (!q3Checked) {
+          score++;
+          q3Checked = true;
+        }
+      } else {
+        feedback.textContent = "❌ Incorrecto";
+        feedback.style.color = "red";
+      }
+    }
+
+    function finalScore(){
+      let final = document.getElementById("final");
+      final.textContent = `Tu puntaje final es: ${score} de 3`;
+      final.style.color = score === 3 ? "green" : "orange";
+      // Reset para nueva sesión (opcional: comenta esto si no quieres reiniciar el score al hacer clic otra vez)
+      score = 0;
+      q1Checked = false;
+      q2Checked = false;
+      q3Checked = false;
+    }
+  </script>
+
+</body>
+</html>

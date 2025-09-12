@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>🌎GlobeWay | Idiomas para Viajeros</title>
+  <link rel="stylesheet" href="estilos-comunes.css" />
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <style>
+    :root {
+      --primary-color: #0073e6;
+      --accent-color: #ff6600;
+      --white-color: rgb(255, 255, 255);
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--white-color);
+      margin: 0;
+      padding: 0;
+    }
+
+    /* 🔹 Ajuste para que el cuerpo no quede tapado por el menú */
+    .language-section {
+      padding: 120px 20px 60px 20px;
+    }
+
+    .language-section:nth-child(even) {
+      background-color: #f4f8fc;
+    }
+
+    .course-img {
+      width: 100%;
+      border-radius: 8px;
+      object-fit: cover;
+      height: 220px;
+    }
+
+    .btn-audio,
+    .btn-quiz,
+    .btn-free-lesson,
+    .btn-buy {
+      background-color: var(--accent-color);
+      color: var(--white-color);
+      border: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-audio:hover,
+    .btn-quiz:hover,
+    .btn-free-lesson:hover,
+    .btn-buy:hover {
+      background-color: #e65500;
+    }
+
+    .btn-certificate {
+      background-color: var(--primary-color);
+      color: var(--white-color);
+      margin-top: 15px;
+      border: none;
+    }
+
+    .btn-certificate:hover {
+      background-color: #ffffff;
+      color: white;
+    }
+
+    footer {
+      background-color: var(--primary-color);
+      color: var(--white-color);
+      text-align: center;
+      padding: 20px;
+      margin-top: 60px;
+    }
+
+    .price {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    .offer {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      margin: 0 auto 25px auto;
+      font-weight: 600;
+      text-align: center;
+      max-width: 400px;
+      font-size: 1.15rem;
+    }
+
+    /* 🔹 Botón carrito en el cuerpo */
+    .cart-btn-body {
+      margin: 20px auto;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .cart-btn-body button {
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 5px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .cart-btn-body button:hover {
+      background-color: #e65500;
+    }
+
+    .cart-items {
+      margin-top: 20px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .cart-item button {
+      background-color: #ff6600;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .cart-item button:hover {
+      background-color: #e65500;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Encabezado con menú -->
+  <header>
+    <div class="logo">🌍GlobeWay</div>
+    <div class="logo">
+      <img src="imagenes/logo.jpg" alt="🌍GlobeWay">
+    </div>
+    <div class="menu-toggle" onclick="document.querySelector('nav ul').classList.toggle('show')">
+      ☰
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="Planificador.html">Planificador</a></li>
+        <li><a href="Cursosdeidiomas.html">Cursos de Idiomas</a></li>
+        <li><a href="Blog.html">Blog</a></li>
+        <li><a href="Contactos.html">Contactos</a></li>
+        <li><a href="iniciarsesion.html">Iniciar sesión</a></li>
+        <li><a href="registrarte.html">Registrarse</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- CURSOS -->
+  <section id="cursos" class="language-section">
+    <div class="container">
+      <h2 class="text-center text-primary">Cursos de Idiomas</h2>
+
+      <!-- 🔹 Botón carrito en el cuerpo -->
+      <div class="cart-btn-body">
+        <button onclick="viewCart()">🛒 Ver carrito</button>
+      </div>
+
+      <!-- Curso Inglés -->
+      <div class="row align-items-center mt-4">
+        <div class="col-md-6">
+          <img src="https://humanidades.com/wp-content/uploads/2018/09/Inglaterra-1-e1579225431994.jpg" alt="Inglés"
+            class="course-img" />
+        </div>
+        <div class="col-md-6">
+          <div class="offer"><a href="curso de ingles.html" style="color:white; text-decoration: none;">Primera lección
+              GRATIS</a></div>
+          <h5>Lección 1: Frases clave (Inglés)</h5>
+          <p><strong>Hello</strong> – Hola<br /><strong>Thank you</strong> – Gracias<br /><strong>Where is the
+              bathroom?</strong> – ¿Dónde está el baño?</p>
+          <button class="btn btn-audio btn-sm" onclick="speak('Hello, thank you, where is the bathroom?', 'en-US')">▶
+            Escuchar pronunciación</button>
+          <hr />
+          <p class="price">$4.99 USD por acceso completo</p>
+          <button class="btn btn-buy btn-sm" onclick="addToCart('Curso de Inglés', '$4.99 USD')">💳 Comprar curso
+            completo</button>
+        </div>
+      </div>
+
+      <!-- Curso Francés -->
+      <div class="row align-items-center mt-4">
+        <div class="col-md-6">
+          <img src="https://d2kzh91pcly9gn.cloudfront.net/paris-torre-eiffel-image.webp" alt="Francés" class="course-img" />
+        </div>
+        <div class="col-md-6">
+     <div class="offer"><a href="curso de frances.html" style="color:white; text-decoration: none;">Primera lección GRATIS</a></div>
+          <h5>Lección 1: Frases clave (Francés)</h5>
+          <p><strong>Bonjour</strong> – Hola<br /><strong>Merci</strong> – Gracias<br /><strong>Où est la salle de bain ?</strong> – ¿Dónde está el baño?</p>
+          <button class="btn btn-audio btn-sm" onclick="speak('Bonjour, merci, où est la salle de bain ?', 'fr-FR')">▶ Escuchar pronunciación</button>
+          <hr />
+          <p class="price">$6.99 USD por acceso completo</p>
+          <button class="btn btn-buy btn-sm" onclick="addToCart('Curso de Francés', '$6.99 USD')">💳 Comprar curso completo</button>
+        </div>
+      </div>
+
+      <!-- Curso Alemán -->
+      <div class="row align-items-center mt-4">
+        <div class="col-md-6">
+          <img src="https://pohcdn.com/sites/default/files/styles/big_gallery_image/public/text_gallery/Berlin_6.jpg" alt="Alemán" class="course-img" />
+        </div>
+        <div class="col-md-6">
+    <div class="offer"><a href="curso de aleman.html" style="color:white; text-decoration: none;">Primera lección GRATIS</a></div>
+          <h5>Lección 1: Frases clave (Alemán)</h5>
+          <p><strong>Hallo</strong> – Hola<br /><strong>Danke</strong> – Gracias<br /><strong>Wo ist das Badezimmer?</strong> – ¿Dónde está el baño?</p>
+          <button class="btn btn-audio btn-sm" onclick="speak('Hallo, danke, wo ist das Badezimmer?', 'de-DE')">▶ Escuchar pronunciación</button>
+          <hr />
+          <p class="price">$7.99 USD por acceso completo</p>
+          <button class="btn btn-buy btn-sm" onclick="addToCart('Curso de Alemán', '$7.99 USD')">💳 Comprar curso completo</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 GlobeWay · Aprende idiomas. Viaja mejor.</p>
+  </footer>
+
+  <!-- Modal Carrito -->
+  <div class="modal fade" id="cartModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Tu carrito</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div id="cartContainer" class="cart-items"></div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button class="btn btn-primary" onclick="proceedToCheckout()">Proceder al pago</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- JavaScript -->
+  <script>
+    let cart = [];
+
+    function addToCart(courseName, price) {
+      const course = { courseName, price };
+      cart.push(course);
+      alert(courseName + " añadido al carrito.");
+    }
+
+    function viewCart() {
+      const cartContainer = document.getElementById('cartContainer');
+      cartContainer.innerHTML = '';
+
+      if (cart.length === 0) {
+        cartContainer.innerHTML = '<p>No tienes productos en el carrito.</p>';
+      } else {
+        let total = 0;
+        cart.forEach((item, index) => {
+          const cartItem = document.createElement('div');
+          cartItem.classList.add('cart-item');
+          cartItem.innerHTML = `
+            <span>${item.courseName} - ${item.price}</span>
+            <button onclick="removeFromCart(${index})">Eliminar</button>
+          `;
+          cartContainer.appendChild(cartItem);
+          total += parseFloat(item.price.replace('$', '').replace('USD', '').trim());
+        });
+
+        const totalElement = document.createElement('div');
+        totalElement.classList.add('mt-3', 'fw-bold');
+        totalElement.textContent = 'Total: $' + total.toFixed(2) + ' USD';
+        cartContainer.appendChild(totalElement);
+      }
+
+      const modal = new bootstrap.Modal(document.getElementById('cartModal'));
+      modal.show();
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      viewCart();
+    }
+
+    function proceedToCheckout() {
+      alert('Procediendo al pago...');
+    }
+
+    function speak(text, lang = 'es-ES') {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = lang;
+      window.speechSynthesis.speak(utterance);
+    }
+    // Detecta el scroll para ocultar o mostrar el menú//  
+  let lastScroll = 0;
+  const header = document.querySelector("header");
+
+  window.addEventListener("scroll", () => {
+    let currentScroll = window.pageYOffset;
+
+    if (currentScroll > lastScroll) {
+      // Bajando → ocultar menú
+      header.classList.add("hidden");
+    } else {
+      // Subiendo → mostrar menú
+      header.classList.remove("hidden");
+    }
+    lastScroll = currentScroll;
+  });
+  </script>
+</body>
+
+</html>

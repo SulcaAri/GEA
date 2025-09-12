@@ -1,0 +1,107 @@
+/* --- ESTILOS DEL MENU --- */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #0d509c;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  z-index: 1000;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+/* Logo */
+header .logo {
+  font-size: 1.9rem;
+  font-weight: bold;
+  color: white;
+}
+
+/* Menú */
+nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+/* Links */
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+/* Hover */
+nav ul li a:hover {
+  color: #0d509c;
+  background: #ffdd57;
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Botón hamburguesa oculto en escritorio */
+.menu-toggle {
+  display: none;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 900px) {
+  nav {
+    justify-content: flex-end;
+  }
+
+  nav ul {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: #0d509c;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 25px 0;
+    display: none; /* Oculto por defecto */
+  }
+
+  nav ul.show {
+    display: flex; /* Se muestra al hacer clic en ☰ */
+  }
+
+  .menu-toggle {
+    display: block; /* Aparece en móviles */
+  }
+}
+/* Logo circular */
+.logo img {
+  width: 60px;        /* tamaño del logo */
+  height: 60px;
+  border-radius: 50%; /* lo convierte en círculo */
+  object-fit: cover;  /* recorta la imagen dentro del círculo */
+  border: 2px solid white; /* borde opcional */
+}
+/* Animación para ocultar y mostrar el menú */
+header {
+  transition: top 0.4s ease; /* suaviza el movimiento */
+}
+
+header.hidden {
+  top: -100px; /* oculta el menú hacia arriba */
+}
