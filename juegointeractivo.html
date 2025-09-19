@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Juego Interactivo de Idiomas — Avanzado</title>
+  <style>
+    :root{
+      --celeste:#0073e6;
+      --naranja:#ff6600;
+      --blanco:rgb(255,255,255);
+      --negro:#333333;
+      --azul:#003366;
+
+      --bg:#0f1724;
+      --card:#0b1220;
+      --accent:var(--celeste);
+      --accent2:var(--naranja);
+      --muted:#94a3b8;
+      --glass: rgba(255,255,255,0.03);
+      --good:#22c55e;
+      --bad:#ef4444;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      font-family:Inter,Segoe UI,Helvetica,Arial;
+      margin:0;
+      min-height:100vh;
+      background:linear-gradient(180deg,var(--azul) 0%, var(--negro) 100%);
+      color:var(--blanco);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px
+    }
+    .app{width:100%; max-width:1100px}
+    header{display:flex; align-items:center; gap:14px; margin-bottom:18px}
+    header h1{font-size:20px;margin:0; color:var(--celeste)}
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      border-radius:12px;
+      padding:18px;
+      box-shadow:0 8px 30px rgba(2,6,23,0.6);
+    }    
+    .controls{display:flex; gap:10px; margin-bottom:12px; flex-wrap:wrap}
+    select, button{
+      background:var(--card);
+      color:inherit;
+      border:1px solid rgba(255,255,255,0.1);
+      padding:8px 10px;
+      border-radius:8px
+    }
+    button.primary{
+      background:linear-gradient(90deg,var(--celeste),var(--naranja));
+      border:none;
+      cursor:pointer;
+      color:var(--blanco);
+      font-weight:bold;
+    }
+    .layout{display:grid; grid-template-columns:1fr 340px; gap:14px}
+    .panel{padding:14px}
+    .muted{color:var(--muted); font-size:13px}
+    .scoreRow{display:flex; gap:12px; align-items:center}
+    .big{font-size:28px; font-weight:700}
+    .avatar{font-size:48px}
+
+    /* Progress bar */
+    .progressWrap{background:rgba(255,255,255,0.1); border-radius:999px; height:12px; overflow:hidden}
+    .progressBar{height:12px; background:linear-gradient(90deg,var(--celeste),var(--naranja)); width:0%; transition:width .6s ease}
+
+    /* Views */
+    .views{min-height:320px}
+    .center{display:flex; align-items:center; justify-content:center}
+
+    .flashCard{display:flex; flex-direction:column; align-items:center; gap:12px}
+    .cardWord{font-size:44px; font-weight:800; color:var(--naranja)}
+    .cardTrans{font-size:18px; color:var(--muted)}
+
+    .choices{display:grid; grid-template-columns:repeat(2,1fr); gap:12px}
+    .choice{
+      padding:12px;
+      border-radius:10px;
+      background:var(--glass);
+      cursor:pointer;
+      text-align:center;
+      user-select:none;
+      transition:background 0.2s;
+    }
+    .choice:hover{background:rgba(0,115,230,0.2);}
+    .choice.correct{box-shadow:0 8px 18px rgba(34,197,94,0.12); border:2px solid rgba(34,197,94,0.5)}
+    .choice.wrong{box-shadow:0 8px 18px rgba(239,68,68,0.08); border:2px solid rgba(239,68,68,0.5)}
+
+    .memGrid{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
+    .tile{
+      background:var(--card);
+      padding:18px;
+      border-radius:10px;
+      cursor:pointer;
+      text-align:center;
+      user-select:none
+    }
+    .tile.match{outline:3px solid var(--celeste)}
+
+    .rewards{display:flex; gap:8px; align-items:center}
+    .star{font-size:20px; color:var(--naranja)}
+
+    .avatarPicker{display:flex; gap:8px}
+    .avatarBtn{padding:8px 10px; border-radius:8px; cursor:pointer}
+
+    .small{font-size:12px}
+    footer{margin-top:12px; color:var(--muted); font-size:13px}
+    @media (max-width:960px){ .layout{grid-template-columns:1fr} }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>🎓 Juego Interactivo de Idiomas — Con Personaje y Audios</h1>
+      <div class="muted small">Modos: Flashcards • Quiz con tiempo • Memorama • Completar frase</div>
+    </header>
+
+    <div class="card">
+      <div class="controls">
+        <label>Idioma:
+          <select id="langSelect"><option value="fr">Francés</option><option value="en">Inglés</option><option value="de">Alemán</option></select>
+        </label>
+        <label>Modo:
+          <select id="modeSelect"><option value="flash">Flashcards</option><option value="quiz">Quiz (tiempo)</option><option value="memory">Memorama</option><option value="fill">Completar frase</option></select>
+        </label>
+        <button id="startBtn" class="primary">Iniciar</button>
+        <button id="speakBtn">🔊 Hablar</button>
+        <div style="margin-left:auto; display:flex; gap:8px; align-items:center">
+          <div class="muted">Jugador:</div>
+          <div class="avatarPicker" id="avatarPicker"></div>
+        </div>
+      </div>
+
+      <div class="layout" style="margin-top:12px">
+        <main class="panel card-left panel">
+          <div class="scoreRow">
+            <div>
+              <div class="big" id="score">0</div>
+              <div class="muted">Puntos</div>
+            </div>
+            <div style="margin-left:12px">
+              <div class="muted small">Nivel</div>
+              <div id="level">1</div>
+            </div>
+            <div style="margin-left:12px">
+              <div class="muted small">Estrellas</div>
+              <div class="rewards" id="starsWrap"></div>
+            </div>
+            <div style="margin-left:auto; width:50%">
+              <div class="muted small">Progreso hacia siguiente nivel</div>
+              <div class="progressWrap"><div id="progressBar" class="progressBar"></div></div>
+            </div>
+          </div>
+
+          <div class="views" id="views">
+            <!-- Flashcards -->
+            <div id="viewFlash" style="display:none" class="center">
+              <div class="flashCard">
+                <div class="avatar" id="guideAvatar">🧑‍🏫</div>
+                <div class="cardWord" id="cardWord">bonjour</div>
+                <div class="cardTrans muted" id="cardTrans">(hola)</div>
+                <div style="display:flex; gap:8px"><button id="nextFlash">Siguiente</button><button id="flipFlash">Mostrar/ocultar traducción</button></div>
+              </div>
+            </div>
+
+            <!-- Quiz -->
+            <div id="viewQuiz" style="display:none">
+              <div id="quizTimer" class="muted small">Tiempo: <span id="timeLeft">15</span>s</div>
+              <div id="quizQuestion" style="margin-top:8px" class="muted">¿Cuál es ...?</div>
+              <div class="choices" id="quizChoices"></div>
+            </div>
+
+            <!-- Memory -->
+            <div id="viewMemory" style="display:none">
+              <div class="muted small">Encuentra los pares (palabra ↔ traducción)</div>
+              <div id="memGrid" class="memGrid" style="margin-top:12px"></div>
+            </div>
+
+            <!-- Fill-in -->
+            <div id="viewFill" style="display:none">
+              <div class="muted small">Completa la frase con la palabra correcta:</div>
+              <div id="fillSentence" style="margin-top:12px; font-size:20px"></div>
+              <input id="fillInput" placeholder="Escribe la palabra" style="margin-top:8px; padding:8px; border-radius:6px; width:100%" />
+              <div style="margin-top:8px"><button id="checkFill">Comprobar</button></div>
+              <div id="fillFeedback" class="muted small" style="margin-top:8px"></div>
+            </div>
+
+          </div>
+        </main>
+
+        <aside class="panel card-right card">
+          <h3 style="margin:0 0 8px 0; color:var(--celeste)">Vocabulario</h3>
+          <div id="vocabList" class="list muted small" style="display:flex; flex-direction:column; gap:6px; max-height:360px; overflow:auto"></div>
+
+          <div style="margin-top:12px">
+            <h4 style="margin:6px 0; color:var(--naranja)">Opciones</h4>
+            <div style="display:flex; gap:8px; flex-wrap:wrap"><button id="resetBtn">Reiniciar</button><button id="shuffleBtn">Barajar</button></div>
+          </div>
+          <footer style="margin-top:12px" class="muted small">El avatar guía hablará en voz nativa usando <code>speechSynthesis</code>. Puedes cambiar avatar.</footer>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ======= Datos ampliados de vocabulario =======
+    const vocab = [
+      {key:'hello', fr:'bonjour', en:'hello', de:'hallo', es:'hola'},
+      {key:'thank', fr:'merci', en:'thank you', de:'danke', es:'gracias'},
+      {key:'bye', fr:'au revoir', en:'goodbye', de:'tschüss', es:'adiós'},
+      {key:'please', fr:"s'il vous plaît", en:'please', de:'bitte', es:'por favor'},
+      {key:'water', fr:'eau', en:'water', de:'wasser', es:'agua'},
+      {key:'bread', fr:'pain', en:'bread', de:'brot', es:'pan'},
+      {key:'food', fr:'nourriture', en:'food', de:'essen', es:'comida'},
+      {key:'friend', fr:'ami', en:'friend', de:'freund', es:'amigo'},
+      {key:'family', fr:'famille', en:'family', de:'familie', es:'familia'},
+      {key:'school', fr:'école', en:'school', de:'schule', es:'escuela'},
+      {key:'house', fr:'maison', en:'house', de:'haus', es:'casa'},
+      {key:'love', fr:'amour', en:'love', de:'liebe', es:'amor'},
+      {key:'day', fr:'jour', en:'day', de:'tag', es:'día'},
+      {key:'night', fr:'nuit', en:'night', de:'nacht', es:'noche'},
+      {key:'book', fr:'livre', en:'book', de:'buch', es:'libro'},
+      {key:'cat', fr:'chat', en:'cat', de:'katze', es:'gato'},
+      {key:'dog', fr:'chien', en:'dog', de:'hund', es:'perro'},
+      {key:'sun', fr:'soleil', en:'sun', de:'sonne', es:'sol'},
+      {key:'moon', fr:'lune', en:'moon', de:'mond', es:'luna'},
+      {key:'city', fr:'ville', en:'city', de:'stadt', es:'ciudad'},
+      {key:'country', fr:'pays', en:'country', de:'land', es:'país'},
+      {key:'travel', fr:'voyager', en:'travel', de:'reisen', es:'viajar'},
+      {key:'one', fr:'un', en:'one', de:'eins', es:'uno'},
+      {key:'two', fr:'deux', en:'two', de:'zwei', es:'dos'},
+      {key:'red', fr:'rouge', en:'red', de:'rot', es:'rojo'},
+      {key:'blue', fr:'bleu', en:'blue', de:'blau', es:'azul'},
+      {key:'green', fr:'vert', en:'green', de:'grün', es:'verde'},
+      // Extra añadidas
+      {key:'car', fr:'voiture', en:'car', de:'auto', es:'coche'},
+      {key:'tree', fr:'arbre', en:'tree', de:'baum', es:'árbol'},
+      {key:'music', fr:'musique', en:'music', de:'musik', es:'música'},
+      {key:'happy', fr:'heureux', en:'happy', de:'glücklich', es:'feliz'},
+      {key:'cold', fr:'froid', en:'cold', de:'kalt', es:'frío'},
+      {key:'hot', fr:'chaud', en:'hot', de:'heiß', es:'caliente'},
+      {key:'beautiful', fr:'beau', en:'beautiful', de:'schön', es:'hermoso'}
+    ];
+
+    // ======= Estado del juego =======
+    let state = { lang: 'fr', mode:'flash', score:0, level:1, stars:0, progress:0, index:0, order:[] };
+
+    // ======= Helpers =======
+    const $ = id=>document.getElementById(id);
+    function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a }
+
+    // ======= Inicialización UI =======
+    function init(){
+      $('langSelect').value = state.lang;
+      $('modeSelect').value = state.mode;
+      buildAvatarPicker();
+      renderVocabList();
+      attachEvents();
+      restoreProgress();
+      updateUI();
+    }
+
+    // Avatares (emoji) selector
+    const avatars = ['🧑‍🏫','👩‍🚀','🧑‍🎓','🧑‍✈️','🐱','🐶','🦊','🧙‍♂️'];
+    function buildAvatarPicker(){ const wrap = $('avatarPicker'); avatars.forEach(a=>{ const btn = document.createElement('button'); btn.className='avatarBtn'; btn.textContent=a; btn.addEventListener('click', ()=>{ setAvatar(a); }); wrap.appendChild(btn);} ); setAvatar(avatars[0]); }
+    function setAvatar(a){ $('guideAvatar').textContent = a; localStorage.setItem('avatar', a); speak(`${a} ¡Hola! Vamos a practicar.`); }
+
+    function attachEvents(){
+      $('startBtn').addEventListener('click', startGame);
+      $('speakBtn').addEventListener('click', speakCurrent);
+      $('nextFlash').addEventListener('click', nextFlash);
+      $('flipFlash').addEventListener('click', toggleTranslation);
+      $('resetBtn').addEventListener('click', resetGame);
+      $('shuffleBtn').addEventListener('click', ()=>{ state.order = shuffle([...Array(vocab.length).keys()]); renderVocabList(); speak('Barajado'); });
+      $('modeSelect').addEventListener('change', e=> state.mode = e.target.value);
+      $('langSelect').addEventListener('change', e=> state.lang = e.target.value);
+      $('checkFill').addEventListener('click', checkFillAnswer);
+    }
+
+    function renderVocabList(){ const wrap = $('vocabList'); wrap.innerHTML=''; vocab.forEach((v,i)=>{ const el = document.createElement('div'); el.className='muted small'; el.style.display='flex'; el.style.justifyContent='space-between'; el.style.alignItems='center'; el.innerHTML = `<div>${i+1}. <strong>${v[state.lang]}</strong></div><div class="muted">${v.es}</div>`; el.addEventListener('click', ()=>{ state.index=i; openFlashAt(i); }); wrap.appendChild(el);} ); }
+
+    // ======= Game flow =======
+    function startGame(){
+      state.score = state.score || 0; state.order = shuffle([...Array(vocab.length).keys()]); state.index = 0; saveProgress(); updateUI(); nextStep(); speak('Comenzamos');
+    }
+
+    function nextStep(){ hideAllViews(); if(state.mode==='flash') openFlashAt(state.order[state.index]); else if(state.mode==='quiz') startQuizRound(); else if(state.mode==='memory') startMemory(); else if(state.mode==='fill') startFill(); }
+    function hideAllViews(){ ['viewFlash','viewQuiz','viewMemory','viewFill'].forEach(id=>$(id).style.display='none'); }
+
+    // ===== Flashcards =====
+    let showTrans = true;
+    function openFlashAt(i){ state.index = i; hideAllViews(); $('viewFlash').style.display='flex'; const item=vocab[i]; $('cardWord').textContent = item[state.lang]; $('cardTrans').textContent = showTrans?`(${item.es})`:''; updateUI(); speak(item[state.lang]); }
+    function nextFlash(){ state.index = (state.index+1)%vocab.length; openFlashAt(state.order[state.index]||state.index); }
+    function toggleTranslation(){ showTrans = !showTrans; const item=vocab[state.index]; $('cardTrans').textContent = showTrans?`(${item.es})` : ''; }
+
+    // ===== Quiz con tiempo =====
+    let quizTimerId = null; let timeLeft=0; function startQuizRound(){ hideAllViews(); $('viewQuiz').style.display='block'; const i = state.order[state.index]; const item = vocab[i]; $('quizQuestion').textContent = `¿Cuál es la traducción de: "${item[state.lang]}"?`; const choices = makeChoices(item.es); const area = $('quizChoices'); area.innerHTML=''; choices.forEach(c=>{ const d = document.createElement('div'); d.className='choice'; d.textContent=c; d.addEventListener('click', ()=>{ answerQuiz(c===item.es,d); }); area.appendChild(d); }); timeLeft = 15; $('timeLeft').textContent = timeLeft; quizTimerId = setInterval(()=>{ timeLeft--; $('timeLeft').textContent=timeLeft; if(timeLeft<=0){ clearInterval(quizTimerId); penalizeTimeout(); } },1000); }
+    function makeChoices(correct){ const opts = [correct]; while(opts.length<4){ const cand = vocab[Math.floor(Math.random()*vocab.length)].es; if(!opts.includes(cand)) opts.push(cand); } shuffle(opts); return opts; }
+    function answerQuiz(ok,el){ clearInterval(quizTimerId); if(ok){ el.classList.add('correct'); gainPoints(15); speak('Correcto'); } else { el.classList.add('wrong'); losePoints(5); speak('Incorrecto'); } setTimeout(()=>{ state.index=(state.index+1)%vocab.length; nextStep(); },800); }
+    function penalizeTimeout(){ losePoints(3); speak('Se acabó el tiempo'); state.index=(state.index+1)%vocab.length; setTimeout(nextStep,600); }
+
+    // ===== Memory (memorama) =====
+    let memState = { first:null, lock:false, matches:0 };
+    function startMemory(){ hideAllViews(); $('viewMemory').style.display='block'; const pairs = shuffle(vocab.slice(0,8)); const cards = [];
+      pairs.forEach(p=>{ cards.push({type:'word', text:p[state.lang], key:p.key}); cards.push({type:'es', text:p.es, key:p.key}); }); shuffle(cards);
+      const grid = $('memGrid'); grid.innerHTML=''; memState={first:null,lock:false,matches:0}; cards.forEach((c,idx)=>{ const tile = document.createElement('div'); tile.className='tile'; tile.dataset.key=c.key; tile.dataset.type=c.type; tile.dataset.index=idx; tile.textContent='?'; tile.addEventListener('click', ()=> flipTile(tile,c)); grid.appendChild(tile); }); }
+    function flipTile(tile,c){ if(memState.lock) return; if(tile.classList.contains('match')) return; tile.textContent = c.text; if(!memState.first){ memState.first = {tile,c}; return; } memState.lock=true; const first = memState.first; if(first.c.key === c.key && first.tile !== tile && first.c.type !== c.type){ tile.classList.add('match'); first.tile.classList.add('match'); memState.matches++; gainPoints(10); speak('Par encontrado'); if(memState.matches===8){ speak('Excelente — completaste el memorama'); gainPoints(50); } setTimeout(()=>{ memState.lock=false; memState.first=null; },300); } else { setTimeout(()=>{ tile.textContent='?'; first.tile.textContent='?'; memState.lock=false; memState.first=null; losePoints(2); },600); } }
+
+    // ===== Fill-in (completar frase) =====
+    function startFill(){ hideAllViews(); $('viewFill').style.display='block'; const item = vocab[Math.floor(Math.random()*vocab.length)]; const sentence = makeSentence(item); $('fillSentence').textContent = sentence.masked; $('fillInput').value=''; $('fillFeedback').textContent=''; speak(sentence.audioWord); }
+    function makeSentence(item){ // frases simples por idioma
+      const pools = {
+        fr: [ {s:`Je bois de l'${item.fr}.`, word:item.fr}, {s:`J'aime lire un ${item.fr}.`, word:item.fr} ],
+        en: [ {s:`I drink ${item.en}.`, word:item.en}, {s:`I love my ${item.en}.`, word:item.en} ],
+        es: [ {s:`Yo bebo ${item.es}.`, word:item.es}, {s:`Me gusta mi ${item.es}.`, word:item.es} ]
+      };
+      const cand = pools[state.lang][Math.floor(Math.random()*pools[state.lang].length)]; return { masked: cand.s.replace(cand.word, '_____'), answer: cand.word, audioWord: cand.word };
+    }
+    function checkFillAnswer(){ const ans = $('fillInput').value.trim().toLowerCase(); const full = $('fillSentence').textContent; // we stored answer in a closure? quick approach: regenerate
+      const expected = (()=>{ // hack: try to find a vocab item whose masked fits
+        for(const v of vocab){ if(full.includes('_____')){ /* nothing */ } }
+        // fallback: iterate vocab find whose translation is in original sentence - not perfect but ok
+        return null;
+      })(); // Instead: store last generated in state
+      // We'll store lastFill
+    }
+
+    // To make fill-in work properly, store last fill sentence
+    let lastFill = null;
+    function startFill(){ hideAllViews(); $('viewFill').style.display='block'; const item = vocab[Math.floor(Math.random()*vocab.length)]; const sentenceObj = simpleSentenceFor(item); lastFill = sentenceObj; $('fillSentence').textContent = sentenceObj.masked; $('fillInput').value=''; $('fillFeedback').textContent=''; speak(sentenceObj.word);
+    }
+    function simpleSentenceFor(item){ if(state.lang==='fr'){ const s=`Je veux ${item.fr} maintenant.`; return { masked: s.replace(item.fr,'_____'), word:item.fr }; } if(state.lang==='en'){ const s=`I want ${item.en} now.`; return { masked: s.replace(item.en,'_____'), word:item.en }; } return { masked: `Quiero ${item.es} ahora.`.replace(item.es,'_____'), word:item.es }; }
+    function checkFillAnswer(){ const ans = $('fillInput').value.trim().toLowerCase(); if(!lastFill) return; if(ans === lastFill.word.toLowerCase()){ $('fillFeedback').textContent = '✅ Correcto'; gainPoints(12); speak('Muy bien'); } else { $('fillFeedback').textContent = `❌ Incorrecto — respuesta: ${lastFill.word}`; losePoints(4); speak('Inténtalo otra vez'); } setTimeout(()=>{ nextStep(); },900);
+    }
+
+    // ===== Points, levels, stars =====
+    function gainPoints(n){ state.score += n; state.progress += n; checkLevelUp(); saveProgress(); updateUI(); }
+    function losePoints(n){ state.score = Math.max(0, state.score - n); saveProgress(); updateUI(); }
+    function checkLevelUp(){ const need = state.level * 100; if(state.progress >= need){ state.level++; state.stars++; state.progress = state.progress - need; speak('Has subido de nivel'); saveProgress(); } }
+
+    function updateUI(){ $('score').textContent = state.score; $('level').textContent = state.level; // stars
+      const sw = $('starsWrap'); sw.innerHTML=''; for(let i=0;i<state.stars;i++){ const s=document.createElement('div'); s.className='star'; s.textContent='⭐'; sw.appendChild(s); }
+      const pct = Math.min(100, Math.floor((state.progress / (state.level*100))*100)); $('progressBar').style.width = pct + '%'; renderVocabList(); }
+
+    // ===== Speech =====
+    function speak(text){ if(!('speechSynthesis' in window)) return; const msg = new SpeechSynthesisUtterance(text); const lang = $('langSelect').value; if(lang==='fr') msg.lang='fr-FR'; if(lang==='en') msg.lang='en-GB'; if(lang==='es') msg.lang='es-ES'; speechSynthesis.cancel(); speechSynthesis.speak(msg); }
+    function speakCurrent(){ const item = vocab[state.index] || vocab[0]; speak(item[state.lang]); }
+
+    // ===== Persistence =====
+    function saveProgress(){ localStorage.setItem('gameState', JSON.stringify(state)); }
+    function restoreProgress(){ const s = localStorage.getItem('gameState'); const a = localStorage.getItem('avatar'); if(s){ try{ const parsed = JSON.parse(s); state = Object.assign(state, parsed); }catch(e){} } if(a) $('guideAvatar').textContent = a; updateUI(); }
+    function resetGame(){ localStorage.removeItem('gameState'); state = { lang: 'fr', mode:'flash', score:0, level:1, stars:0, progress:0, index:0, order:[] }; updateUI(); speak('Juego reiniciado'); }
+
+    // ===== Utilities =====
+    function openFlashAt(i){ state.index=i; hideAllViews(); $('viewFlash').style.display='flex'; const item = vocab[i]; $('cardWord').textContent = item[state.lang]; $('cardTrans').textContent = `(${item.es})`; speak(item[state.lang]); updateUI(); }
+
+    // bootstrap
+    init();
+  </script>
+</body>
+</html>

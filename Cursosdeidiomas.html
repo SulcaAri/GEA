@@ -137,28 +137,51 @@
     .cart-item button:hover {
       background-color: #e65500;
     }
+
+    /* 🔹 Estilo para el header ocultable */
+    header.hidden {
+      transform: translateY(-100%);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    /* 🔹 Ocultar elementos por defecto */
+    .oculto {
+      display: none !important;
+    }
   </style>
 </head>
 
 <body>
   <!-- Encabezado con menú -->
   <header>
-    <div class="logo">🌍GlobeWay</div>
     <div class="logo">
-      <img src="imagenes/logo.jpg" alt="🌍GlobeWay">
+      <img src="imagenes/logo.jpg" alt="GlobeWay" />
+      <span>🌍GlobeWay</span>
     </div>
+
     <div class="menu-toggle" onclick="document.querySelector('nav ul').classList.toggle('show')">
       ☰
     </div>
+
     <nav>
-      <ul>
+      <ul id="menu">
         <li><a href="index.html">Inicio</a></li>
         <li><a href="Planificador.html">Planificador</a></li>
         <li><a href="Cursosdeidiomas.html">Cursos de Idiomas</a></li>
         <li><a href="Blog.html">Blog</a></li>
         <li><a href="Contactos.html">Contactos</a></li>
-        <li><a href="iniciarsesion.html">Iniciar sesión</a></li>
-        <li><a href="registrarte.html">Registrarse</a></li>
+
+        <!-- Botones login/registro -->
+        <li id="nav-login">
+          <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#loginModal">Iniciar sesión</a>
+        </li>
+        <li id="nav-register">
+          <a href="#" class="btn registro" data-bs-toggle="modal" data-bs-target="#registerModal">Registrarse</a>
+        </li>
+        <li id="nav-user" class="oculto">
+          <span id="user-name" style="margin-right: 10px;"></span>
+          <a href="#" class="btn btn-sm btn-outline-danger" id="btn-logout">Cerrar sesión</a>
+        </li>
       </ul>
     </nav>
   </header>
@@ -197,32 +220,42 @@
       <!-- Curso Francés -->
       <div class="row align-items-center mt-4">
         <div class="col-md-6">
-          <img src="https://d2kzh91pcly9gn.cloudfront.net/paris-torre-eiffel-image.webp" alt="Francés" class="course-img" />
+          <img src="https://d2kzh91pcly9gn.cloudfront.net/paris-torre-eiffel-image.webp" alt="Francés"
+            class="course-img" />
         </div>
         <div class="col-md-6">
-     <div class="offer"><a href="curso de frances.html" style="color:white; text-decoration: none;">Primera lección GRATIS</a></div>
+          <div class="offer"><a href="curso de frances.html" style="color:white; text-decoration: none;">Primera lección
+              GRATIS</a></div>
           <h5>Lección 1: Frases clave (Francés)</h5>
-          <p><strong>Bonjour</strong> – Hola<br /><strong>Merci</strong> – Gracias<br /><strong>Où est la salle de bain ?</strong> – ¿Dónde está el baño?</p>
-          <button class="btn btn-audio btn-sm" onclick="speak('Bonjour, merci, où est la salle de bain ?', 'fr-FR')">▶ Escuchar pronunciación</button>
+          <p><strong>Bonjour</strong> – Hola<br /><strong>Merci</strong> – Gracias<br /><strong>Où est la salle de bain
+              ?</strong> – ¿Dónde está el baño?</p>
+          <button class="btn btn-audio btn-sm"
+            onclick="speak('Bonjour, merci, où est la salle de bain ?', 'fr-FR')">▶ Escuchar pronunciación</button>
           <hr />
           <p class="price">$6.99 USD por acceso completo</p>
-          <button class="btn btn-buy btn-sm" onclick="addToCart('Curso de Francés', '$6.99 USD')">💳 Comprar curso completo</button>
+          <button class="btn btn-buy btn-sm" onclick="addToCart('Curso de Francés', '$6.99 USD')">💳 Comprar curso
+            completo</button>
         </div>
       </div>
 
       <!-- Curso Alemán -->
       <div class="row align-items-center mt-4">
         <div class="col-md-6">
-          <img src="https://pohcdn.com/sites/default/files/styles/big_gallery_image/public/text_gallery/Berlin_6.jpg" alt="Alemán" class="course-img" />
+          <img src="https://pohcdn.com/sites/default/files/styles/big_gallery_image/public/text_gallery/Berlin_6.jpg"
+            alt="Alemán" class="course-img" />
         </div>
         <div class="col-md-6">
-    <div class="offer"><a href="curso de aleman.html" style="color:white; text-decoration: none;">Primera lección GRATIS</a></div>
+          <div class="offer"><a href="curso de aleman.html" style="color:white; text-decoration: none;">Primera lección
+              GRATIS</a></div>
           <h5>Lección 1: Frases clave (Alemán)</h5>
-          <p><strong>Hallo</strong> – Hola<br /><strong>Danke</strong> – Gracias<br /><strong>Wo ist das Badezimmer?</strong> – ¿Dónde está el baño?</p>
-          <button class="btn btn-audio btn-sm" onclick="speak('Hallo, danke, wo ist das Badezimmer?', 'de-DE')">▶ Escuchar pronunciación</button>
+          <p><strong>Hallo</strong> – Hola<br /><strong>Danke</strong> – Gracias<br /><strong>Wo ist das
+              Badezimmer?</strong> – ¿Dónde está el baño?</p>
+          <button class="btn btn-audio btn-sm" onclick="speak('Hallo, danke, wo ist das Badezimmer?', 'de-DE')">▶
+            Escuchar pronunciación</button>
           <hr />
           <p class="price">$7.99 USD por acceso completo</p>
-          <button class="btn btn-buy btn-sm" onclick="addToCart('Curso de Alemán', '$7.99 USD')">💳 Comprar curso completo</button>
+          <button class="btn btn-buy btn-sm" onclick="addToCart('Curso de Alemán', '$7.99 USD')">💳 Comprar curso
+            completo</button>
         </div>
       </div>
     </div>
@@ -252,79 +285,66 @@
     </div>
   </div>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- 🔹 Modal de Login -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <form id="loginForm">
+            <div class="mb-3">
+              <label for="loginEmail" class="form-label">Correo Electrónico</label>
+              <input type="email" class="form-control" id="loginEmail" required />
+            </div>
+            <div class="mb-3">
+              <label for="loginPassword" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="loginPassword" required />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#registerModal" data-bs-dismiss="modal">
+            ¿No tienes cuenta? Regístrate
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <!-- JavaScript -->
-  <script>
-    let cart = [];
-
-    function addToCart(courseName, price) {
-      const course = { courseName, price };
-      cart.push(course);
-      alert(courseName + " añadido al carrito.");
-    }
-
-    function viewCart() {
-      const cartContainer = document.getElementById('cartContainer');
-      cartContainer.innerHTML = '';
-
-      if (cart.length === 0) {
-        cartContainer.innerHTML = '<p>No tienes productos en el carrito.</p>';
-      } else {
-        let total = 0;
-        cart.forEach((item, index) => {
-          const cartItem = document.createElement('div');
-          cartItem.classList.add('cart-item');
-          cartItem.innerHTML = `
-            <span>${item.courseName} - ${item.price}</span>
-            <button onclick="removeFromCart(${index})">Eliminar</button>
-          `;
-          cartContainer.appendChild(cartItem);
-          total += parseFloat(item.price.replace('$', '').replace('USD', '').trim());
-        });
-
-        const totalElement = document.createElement('div');
-        totalElement.classList.add('mt-3', 'fw-bold');
-        totalElement.textContent = 'Total: $' + total.toFixed(2) + ' USD';
-        cartContainer.appendChild(totalElement);
-      }
-
-      const modal = new bootstrap.Modal(document.getElementById('cartModal'));
-      modal.show();
-    }
-
-    function removeFromCart(index) {
-      cart.splice(index, 1);
-      viewCart();
-    }
-
-    function proceedToCheckout() {
-      alert('Procediendo al pago...');
-    }
-
-    function speak(text, lang = 'es-ES') {
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = lang;
-      window.speechSynthesis.speak(utterance);
-    }
-    // Detecta el scroll para ocultar o mostrar el menú//  
-  let lastScroll = 0;
-  const header = document.querySelector("header");
-
-  window.addEventListener("scroll", () => {
-    let currentScroll = window.pageYOffset;
-
-    if (currentScroll > lastScroll) {
-      // Bajando → ocultar menú
-      header.classList.add("hidden");
-    } else {
-      // Subiendo → mostrar menú
-      header.classList.remove("hidden");
-    }
-    lastScroll = currentScroll;
-  });
-  </script>
-</body>
-
+  <!-- 🔹 Modal de Registro -->
+  <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="registerModalLabel">Registro de Usuario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <form id="registerForm">
+            <div class="mb-3">
+              <label for="registerName" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="registerName" required />
+            </div>
+            <div class="mb-3">
+              <label for="registerEmail" class="form-label">Correo Electrónico</label>
+              <input type="email" class="form-control" id="registerEmail" required />
+            </div>
+            <div class="mb-3">
+              <label for="registerPassword" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="registerPassword" required />
+            </div>
+            <button type="submit" class="btn btn-success w-100">Registrarse</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Bootstrap JS y tu script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/login-menu.js" defer></script>
+  </body>
 </html>

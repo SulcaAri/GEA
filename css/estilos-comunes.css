@@ -62,6 +62,45 @@ nav ul li a:hover {
   cursor: pointer;
 }
 
+/* Logo circular */
+.logo img {
+  width: 60px;        /* tamaño del logo */
+  height: 60px;
+  border-radius: 50%; /* lo convierte en círculo */
+  object-fit: cover;  /* recorta la imagen dentro del círculo */
+  border: 2px solid white; /* borde opcional */
+}
+
+/* Animación para ocultar y mostrar el menú */
+header {
+  transition: top 0.4s ease; /* suaviza el movimiento */
+}
+
+header.hidden {
+  top: -100px; /* oculta el menú hacia arriba */
+}
+
+/* Aumentar tamaño y visibilidad solo a los enlaces importantes del menú */
+nav ul li a.btn,
+nav ul li a.registro {
+  font-size: 1.3rem;
+  color: white !important;
+  font-weight: 600;
+  padding: 8px 16px;
+  background-color: transparent;
+  border: 2px solid white;
+  border-radius: 8px;
+}
+
+/* Hover personalizado para destacar aún más */
+nav ul li a.btn:hover,
+nav ul li a.registro:hover {
+  background-color: white;
+  color: #0d509c !important;
+  border-color: white;
+  transform: scale(1.08);
+}
+
 /* --- RESPONSIVE --- */
 @media (max-width: 900px) {
   nav {
@@ -88,20 +127,4 @@ nav ul li a:hover {
   .menu-toggle {
     display: block; /* Aparece en móviles */
   }
-}
-/* Logo circular */
-.logo img {
-  width: 60px;        /* tamaño del logo */
-  height: 60px;
-  border-radius: 50%; /* lo convierte en círculo */
-  object-fit: cover;  /* recorta la imagen dentro del círculo */
-  border: 2px solid white; /* borde opcional */
-}
-/* Animación para ocultar y mostrar el menú */
-header {
-  transition: top 0.4s ease; /* suaviza el movimiento */
-}
-
-header.hidden {
-  top: -100px; /* oculta el menú hacia arriba */
 }

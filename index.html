@@ -8,7 +8,12 @@
       content="🌍GlobeWay - Personaliza tu viaje y prepárate en el idioma local. Planifica y aprende para vivir experiencias únicas."
     />
     <title>Academia Educativa</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- Tu CSS personalizado -->
     <link rel="stylesheet" href="css/estilos-comunes.css" />
+
     <style>
       :root {
         --cta: #0d509c;
@@ -37,7 +42,6 @@
         color: white;
         padding: 2rem;
         margin-top: 0;
-        /* Asegura que no quede espacio extra */
       }
 
       .hero::before {
@@ -84,20 +88,17 @@
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
       }
 
-      /* Animación entrada */
       @keyframes fadeInUp {
         from {
           opacity: 0;
           transform: translateY(30px);
         }
-
         to {
           opacity: 1;
           transform: translateY(0);
         }
       }
 
-      /* Misión y Visión */
       .mision-vision {
         background: #f8fbff;
         padding: 5rem 2rem;
@@ -138,7 +139,6 @@
         line-height: 1.7;
       }
 
-      /* Footer */
       footer {
         background: #0d509c;
         color: white;
@@ -155,7 +155,7 @@
         font-size: 0.95rem;
         margin: 0;
       }
-      /* Botón Encuesta */
+
       .boton-encuesta {
         background: #ff6600;
         color: white;
@@ -167,12 +167,27 @@
         transition: all 0.3s ease;
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
         font-size: 1.1rem;
+        margin: 0.5rem;
       }
 
       .boton-encuesta:hover {
         background: #e05500;
         transform: scale(1.05);
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+      }
+
+      /* Para mostrar/ocultar elementos del menú */
+      .oculto {
+        display: none !important;
+      }
+
+      /* Contenedor de los botones en fila */
+      .encuestas-contenedor {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-top: 3rem;
       }
     </style>
   </head>
@@ -183,10 +198,8 @@
       <div class="logo">
         <img src="imagenes/logo.jpg" alt="🌍GlobeWay" />
       </div>
-      <!-- Botón hamburguesa (solo en móvil) -->
       <div class="menu-toggle" id="menu-toggle">☰</div>
 
-      <!-- Menú de navegación -->
       <nav>
         <ul id="menu">
           <li><a href="index.html">Inicio</a></li>
@@ -194,20 +207,26 @@
           <li><a href="Cursosdeidiomas.html">Cursos de Idiomas</a></li>
           <li><a href="Blog.html">Blog</a></li>
           <li><a href="Contactos.html">Contactos</a></li>
-          <li><a href="iniciarsesion.html" class="btn">Iniciar sesión</a></li>
-          <li>
-            <a href="registrarte.html" class="btn registro">Registrarse</a>
+          <!-- Enlaces que abren los modales -->
+          <li id="nav-login"><a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#loginModal">Iniciar sesión</a>
+          </li><li id="nav-register">
+            <a href="#" class="btn registro" data-bs-toggle="modal" data-bs-target="#registerModal">Registrarse</a>
+          </li>
+          <li id="nav-user" class="oculto">
+            <span id="user-name" style="margin-right: 10px;"></span>
+            <a href="#" class="btn btn-sm btn-outline-danger" id="btn-logout">Cerrar sesión</a>
           </li>
         </ul>
       </nav>
     </header>
+
     <main>
       <section class="hero">
         <div class="contenido">
           <h1>Personaliza tu viaje y prepárate en el idioma local</h1>
           <p>Diseña tu viaje ideal y empieza a hablar como un local</p>
           <p>Viajes personalizados + cursos básicos de idiomas</p>
-          <a href="#" class="boton-explorar">Explorar ahora</a>
+          <a href="juegointeractivo.html" class="boton-explorar">Juego interactivo</a>
         </div>
       </section>
 
@@ -232,11 +251,12 @@
             </p>
           </div>
         </div>
-        <!-- 🔽 Botón Encuesta -->
-        <div style="text-align: center; margin-top: 3rem">
-          <a href="encuesta.html" class="boton-encuesta"
-            >📋 Responder Encuesta</a
-          >
+
+        <!-- Botones de encuesta en fila -->
+        <div class="encuestas-contenedor">
+          <a href="encuesta/ingles.html" class="boton-encuesta">📋 Encuesta Inglés</a>
+          <a href="encuesta/frances.html" class="boton-encuesta">📋 Encuesta Francés</a>
+          <a href="encuesta/aleman.html" class="boton-encuesta">📋 Encuesta Alemán</a>
         </div>
       </section>
     </main>
@@ -248,30 +268,95 @@
       />
       <p>🌍GlobeWay — Conectando culturas, creando experiencias.</p>
     </footer>
-    <!-- Script para abrir/cerrar menú en móviles -->
-    <script>
-      const toggle = document.getElementById("menu-toggle");
-      const menu = document.getElementById("menu");
 
-      toggle.addEventListener("click", () => {
-        menu.classList.toggle("show");
-      });
-      let lastScroll = 0;
-      const header = document.querySelector("header");
-      // Detecta el scroll para ocultar o mostrar el menú//
-      window.addEventListener("scroll", () => {
-        let currentScroll = window.pageYOffset;
+    <!-- Modales de Login y Registro -->
+    <!-- Modal de Login -->
+    <div
+      class="modal fade"
+      id="loginModal"
+      tabindex="-1"
+      aria-labelledby="loginModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Cerrar"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="loginForm">
+              <div class="mb-3">
+                <label for="loginEmail" class="form-label">Correo Electrónico</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="loginEmail"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="loginPassword" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="loginPassword" required/>
+              </div>
+              <button type="submit" class="btn btn-primary w-100">
+                Ingresar
+              </button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#registerModal" data-bs-dismiss="modal">
+              ¿No tienes cuenta? Regístrate
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        if (currentScroll > lastScroll) {
-          // Bajando → ocultar menú
-          header.classList.add("hidden");
-        } else {
-          // Subiendo → mostrar menú
-          header.classList.remove("hidden");
-        }
+    <!-- Modal de Registro -->
+    <div
+      class="modal fade"
+      id="registerModal"
+      tabindex="-1"
+      aria-labelledby="registerModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="registerModalLabel">Registro de Usuario</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <form id="registerForm">
+              <div class="mb-3">
+                <label for="registerName" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="registerName" required/>
+              </div>
+              <div class="mb-3">
+                <label for="registerEmail" class="form-label">Correo Electrónico</label>
+                <input type="email" class="form-control" id="registerEmail" required/>
+              </div>
+              <div class="mb-3">
+                <label for="registerPassword" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="registerPassword" required/>
+              </div>
+              <button type="submit" class="btn btn-success w-100">
+                Registrarse
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        lastScroll = currentScroll;
-      });
-    </script>
+    <!-- Bootstrap JS + tu script de logueo -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/login-menu.js" defer></script>
   </body>
 </html>

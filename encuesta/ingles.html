@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario de Evaluación de Inglés</title>
+  <style>
+    :root {
+      --azul-principal: #005A9C;
+      --naranja-principal: #F57C00;
+      --gris-claro: #f9f9f9;
+      --gris-oscuro: #444;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--gris-claro);
+      padding: 20px;
+    }
+
+    form {
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      max-width: 900px;
+      margin: auto;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      border-top: 8px solid var(--azul-principal);
+      text-align: center;
+    }
+
+    h1 {
+      color: var(--azul-principal);
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      color: var(--naranja-principal);
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      margin: 15px 0 5px;
+      font-weight: bold;
+      color: var(--gris-oscuro);
+    }
+
+    select, input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    button, input[type="submit"] {
+      background: var(--azul-principal);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 15px;
+    }
+
+    button:hover, input[type="submit"]:hover {
+      background: var(--naranja-principal);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #resultado {
+      margin-top: 25px;
+      font-size: 18px;
+      font-weight: bold;
+      color: var(--azul-principal);
+    }
+  </style>
+</head>
+<body>
+
+  <form id="formulario-evaluacion">
+    <!-- Bandera -->
+    <img src="https://cdn-icons-png.flaticon.com/512/197/197484.png" 
+         alt="Bandera de Estados Unidos" 
+         style="max-width:120px; display:block; margin:0 auto 15px;">
+
+    <h1>Formulario de Evaluación de Inglés</h1>
+
+    <!-- PARTE 1 -->
+    <div class="section" id="parte1">
+      <h2>Parte 1: Datos personales</h2>
+
+      <label>¿Hace cuanto tiempo practicas el idioma?</label>
+      <input type="text" name="tiempo_practica" required>
+
+      <label>¿En dondé lo has estudiado?</label>
+      <input type="email" name="email" required>
+
+      <label>¿En que nivel consideras que estas?</label>
+      <input type="email" name="email" required>
+
+
+      
+      <button type="button" onclick="mostrarParte2()">Siguiente</button>
+    </div>
+
+    <!-- PARTE 2 -->
+    <div class="section hidden" id="parte2">
+      <h2>Parte 2: Test de Nivel (20 preguntas)</h2>
+
+      <div id="preguntas"></div>
+
+      <input type="submit" value="Enviar formulario">
+      <div id="resultado"></div>
+    </div>
+  </form>
+
+  <script>
+    const preguntas = [
+      {q:"What’s the plural of 'child'?", a:"b", opciones:["Childs","Children","Childes"]},
+      {q:"Choose the correct sentence:", a:"c", opciones:["She go to school.","She going to school.","She goes to school."]},
+      {q:"Past tense of 'buy' is:", a:"a", opciones:["Bought","Buyed","Buy"]},
+      {q:"'I ____ a book now.'", a:"b", opciones:["read","am reading","reads"]},
+      {q:"Translate: 'La reunión fue cancelada.'", a:"c", opciones:["The meeting has postponed.","The meeting is on Monday.","The meeting was cancelled."]},
+      {q:"Synonym of 'happy'?", a:"a", opciones:["Glad","Sad","Angry"]},
+      {q:"What is 'better'?", a:"c", opciones:["Adjective","Noun","Comparative"]},
+      {q:"Complete: 'He ____ never late.'", a:"b", opciones:["are","is","be"]},
+      {q:"Past of 'can'?", a:"a", opciones:["Could","Caned","Canned"]},
+      {q:"Opposite of 'hot'?", a:"c", opciones:["Warm","Cool","Cold"]},
+      {q:"Which one is correct?", a:"b", opciones:["There is many people.","There are many people.","There have many people."]},
+      {q:"'Mouse' plural is:", a:"c", opciones:["Mouses","Mices","Mice"]},
+      {q:"Future: 'I ____ travel tomorrow.'", a:"a", opciones:["will","am","can"]},
+      {q:"Choose correct question:", a:"b", opciones:["Where you are going?","Where are you going?","Where going you?"]},
+      {q:"Translate: 'Estoy estudiando inglés.'", a:"c", opciones:["I study English.","I studied English.","I am studying English."]},
+      {q:"Antonym of 'fast'?", a:"b", opciones:["Speed","Slow","Quick"]},
+      {q:"Select correct phrase:", a:"a", opciones:["She has got two sisters.","She have two sisters.","She haves two sisters."]},
+      {q:"Past participle of 'eat'?", a:"b", opciones:["Eated","Eaten","Ate"]},
+      {q:"Which is correct?", a:"c", opciones:["He don’t like tea.","He doesn’t likes tea.","He doesn’t like tea."]},
+      {q:"What does 'Can you spell that?' mean?", a:"a", opciones:["¿Puedes deletrear eso?","¿Puedes explicarme eso?","¿Puedes traducir eso?"]}
+    ];
+
+    // Genera preguntas
+    const contenedor = document.getElementById("preguntas");
+    preguntas.forEach((p, i) => {
+      let html = `<label>${i+1}. ${p.q}</label>
+                  <select name="p${i}" required>
+                    <option value="">Selecciona</option>`;
+      p.opciones.forEach((op, idx) => {
+        let letra = String.fromCharCode(97+idx); // a,b,c
+        html += `<option value="${letra}">${op}</option>`;
+      });
+      html += `</select>`;
+      contenedor.innerHTML += html;
+    });
+
+    function mostrarParte2() {
+      document.getElementById("parte1").classList.add("hidden");
+      document.getElementById("parte2").classList.remove("hidden");
+    }
+
+    document.getElementById("formulario-evaluacion").addEventListener("submit", function(e){
+      e.preventDefault(); // 🚨 evita recargar la página
+
+      let puntaje = 0;
+      preguntas.forEach((p,i)=>{
+        const resp = this[`p${i}`].value;
+        if(resp === p.a) puntaje++;
+      });
+
+      let nivel = "";
+      if(puntaje <=5) nivel="A1 - Principiante";
+      else if(puntaje <=10) nivel="A2 - Básico";
+      else if(puntaje <=14) nivel="B1 - Intermedio";
+      else if(puntaje <=17) nivel="B2 - Intermedio alto";
+      else if(puntaje <=19) nivel="C1 - Avanzado";
+      else nivel="C2 - Competencia nativa";
+
+      document.getElementById("resultado").textContent = 
+        `Tu puntaje es ${puntaje}/20 → Nivel estimado: ${nivel}`;
+    });
+  </script>
+</body>
+</html>
