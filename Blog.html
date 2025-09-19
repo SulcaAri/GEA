@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Blog de Viajes</title>
-    <link rel="stylesheet" href="estilos-comunes.css">
-  <style> 
+
+  <!-- Tu CSS global -->
+  <link rel="stylesheet" href="css/estilos-comunes.css">
+
+  <!-- Bootstrap (CSS) necesario para los modales -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <style>
     :root {
       --celeste: #0073e6;
       --naranja: #ff6600;
@@ -83,27 +89,58 @@
       background-color: rgba(0, 51, 102, 0.9);
       color: var(--blanco);
     }
+
+    /* Clase para ocultar header al hacer scroll */
+    header.hidden {
+      transform: translateY(-100%);
+      transition: transform 0.4s ease;
+    }
+
+    /* Oculto por defecto para el menú de usuario */
+    .oculto {
+      display: none !important;
+    }
+
+    /* Opcional: pequeño estilo para logo dentro del header */
+    header .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px;
+    }
   </style>
 </head>
 <body>
-  <!-- Header sin estilos (puro HTML) -->
+  <!-- Header con menú y botones de login/register -->
   <header>
-    <div class="logo">🌍GlobeWay</div>
     <div class="logo">
-      <img src="imagenes/logo.jpg" alt="🌍GlobeWay">
+      <img src="imagenes/logo.jpg" alt="🌍GlobeWay" style="height:40px;">
+      <span>🌍GlobeWay</span>
     </div>
+
     <div class="menu-toggle" onclick="document.querySelector('nav ul').classList.toggle('show')">
       ☰
     </div>
+
     <nav>
-      <ul>
+      <ul id="menu">
         <li><a href="index.html">Inicio</a></li>
         <li><a href="Planificador.html">Planificador</a></li>
         <li><a href="Cursosdeidiomas.html">Cursos de Idiomas</a></li>
         <li><a href="Blog.html">Blog</a></li>
         <li><a href="Contactos.html">Contactos</a></li>
-        <li><a href="iniciarsesion.html">Iniciar sesión</a></li>
-        <li><a href="registrarte.html">Registrarse</a></li>
+
+        <!-- Botones de login/register y usuario -->
+        <li id="nav-login">
+          <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#loginModal">Iniciar sesión</a>
+        </li>
+        <li id="nav-register">
+          <a href="#" class="btn registro" data-bs-toggle="modal" data-bs-target="#registerModal">Registrarse</a>
+        </li>
+        <li id="nav-user" class="oculto">
+          <span id="user-name" style="margin-right: 10px;"></span>
+          <a href="#" class="btn btn-sm btn-outline-danger" id="btn-logout">Cerrar sesión</a>
+        </li>
       </ul>
     </nav>
   </header>
@@ -157,23 +194,73 @@
   <footer>
     <p>&copy; Tu Blog de Viajes</p>
   </footer>
-  <script>
-  let lastScroll = 0;
-  const header = document.querySelector("header");
 
-  window.addEventListener("scroll", () => {
-    let currentScroll = window.pageYOffset;
+  <!-- -------------------------
+       Modales: Login y Registro
+       ------------------------- -->
+  <!-- Modal de Login -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <form id="loginForm">
+            <div class="mb-3">
+              <label for="loginEmail" class="form-label">Correo Electrónico</label>
+              <input type="email" class="form-control" id="loginEmail" required />
+            </div>
+            <div class="mb-3">
+              <label for="loginPassword" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="loginPassword" required />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#registerModal" data-bs-dismiss="modal">
+            ¿No tienes cuenta? Regístrate
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    if (currentScroll > lastScroll) {
-      // Bajando → ocultar menú
-      header.classList.add("hidden");
-    } else {
-      // Subiendo → mostrar menú
-      header.classList.remove("hidden");
-    }
+  <!-- Modal de Registro -->
+  <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="registerModalLabel">Registro de Usuario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <form id="registerForm">
+            <div class="mb-3">
+              <label for="registerName" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="registerName" required />
+            </div>
+            <div class="mb-3">
+              <label for="registerEmail" class="form-label">Correo Electrónico</label>
+              <input type="email" class="form-control" id="registerEmail" required />
+            </div>
+            <div class="mb-3">
+              <label for="registerPassword" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="registerPassword" required />
+            </div>
+            <button type="submit" class="btn btn-success w-100">Registrarse</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    lastScroll = currentScroll;
-  });
-</script>
+  <!-- Bootstrap JS (bundle incluye Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Tus scripts externos (asegúrate de tener estos archivos en /js) -->
+  <script src="js/login-menu.js" defer></script>
 </body>
 </html>

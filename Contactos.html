@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Contáctanos - 🌍GlobeWay">
   <title>Contacto - GlobeWay</title>
-  <link rel="stylesheet" href="estilos-comunes.css">
+  <link rel="stylesheet" href="css/estilos-comunes.css">
   <style>
     :root {
       --brand: #267ee2;
@@ -215,6 +215,24 @@
     display: flex;
   }
 }
+/* Clase para ocultar header al hacer scroll */
+    header.hidden {
+      transform: translateY(-100%);
+      transition: transform 0.4s ease;
+    }
+
+    /* Oculto por defecto para el menú de usuario */
+    .oculto {
+      display: none !important;
+    }
+
+    /* Opcional: pequeño estilo para logo dentro del header */
+    header .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px;
+    }
   </style>
 </head>
 <body>
@@ -233,11 +251,20 @@
       <li><a href="Cursosdeidiomas.html">Cursos de Idiomas</a></li>
       <li><a href="Blog.html">Blog</a></li>
       <li><a href="Contactos.html">Contactos</a></li>
-      <li><a href="iniciarsesion.html">Iniciar sesión</a></li>
-      <li><a href="registrarte.html">Registrarse</a></li>
-    </ul>
-  </nav>
-</header>
+      <!-- Botones de login/register y usuario -->
+        <li id="nav-login">
+          <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#loginModal">Iniciar sesión</a>
+        </li>
+        <li id="nav-register">
+          <a href="#" class="btn registro" data-bs-toggle="modal" data-bs-target="#registerModal">Registrarse</a>
+        </li>
+        <li id="nav-user" class="oculto">
+          <span id="user-name" style="margin-right: 10px;"></span>
+          <a href="#" class="btn btn-sm btn-outline-danger" id="btn-logout">Cerrar sesión</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
   <div style="margin-top:120px;"></div>
     <section id="contacto" style="max-width: 700px; margin: 40px auto; padding: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f7ff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); color: #003366;">
   <h2 style="text-align: center; color: #FF6600; margin-bottom: 30px; font-weight: 700; font-size: 2.5rem;">Contacto</h2>
@@ -381,7 +408,41 @@
   </div>
 </section>
 
-<script>
+<!-- Modal de Registro -->
+  <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="registerModalLabel">Registro de Usuario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <form id="registerForm">
+            <div class="mb-3">
+              <label for="registerName" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="registerName" required />
+            </div>
+            <div class="mb-3">
+              <label for="registerEmail" class="form-label">Correo Electrónico</label>
+              <input type="email" class="form-control" id="registerEmail" required />
+            </div>
+            <div class="mb-3">
+              <label for="registerPassword" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="registerPassword" required />
+            </div>
+            <button type="submit" class="btn btn-success w-100">Registrarse</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS (bundle incluye Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Tus scripts externos (asegúrate de tener estos archivos en /js) -->
+  <script src="js/login-menu.js" defer></script>
+  <script>
   // Manejo del menú hamburguesa//
   document.getElementById("menu-toggle").addEventListener("click", function() {
     document.getElementById("menu").classList.toggle("show");
@@ -436,3 +497,5 @@
 </script>
 </body>
 </html>
+
+
