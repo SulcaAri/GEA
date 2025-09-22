@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Resultados - Nivel de Francés</title>
+  <title>Resultados - Nivel de Inglés</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <!-- Tu CSS personalizado (externo) -->
@@ -11,7 +11,7 @@
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #0073e6, #003366);
+      background: linear-gradient(135deg, #00247d, #cf142b, #ffffff);
       color: white;
       margin: 0;
       padding: 0;
@@ -19,17 +19,14 @@
       display: flex;
       flex-direction: column;
     }
-
     header {
       padding: 15px 30px;
-      background: rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(6px);
-      border-bottom: 2px solid rgba(255,255,255,0.2);
+      background: rgba(0, 0, 0, 0.4);
+      border-bottom: 2px solid rgba(255,255,255,0.3);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-
     header .logo {
       font-weight: bold;
       font-size: 1.4rem;
@@ -38,7 +35,6 @@
       align-items: center;
       gap: 10px;
     }
-
     nav ul {
       list-style: none;
       margin: 0;
@@ -55,46 +51,39 @@
     }
 
     nav ul li a:hover {
-      color: #ffd700;
+      color: #695f05f8;
     }
-
     .container {
       background: #ffffff;
-      color: #333;
+      color: #222;
       padding: 40px 30px;
       border-radius: 20px;
       max-width: 950px;
       margin: auto;
-      margin-top: 70px; /* 👉 más espacio debajo del header */
+      margin-top: 70px;
       margin-bottom: 50px;
-      box-shadow: 0px 8px 25px rgba(0,0,0,0.3);
-      animation: fadeIn 1s ease;
+      box-shadow: 0px 8px 25px rgba(0,0,0,0.4);
       text-align: center;
     }
-
     h2 {
       font-size: 2rem;
       margin-bottom: 20px;
-      color: #003366;
+      color: #00247d;
       font-weight: bold;
     }
-
     .videos {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 30px;
-      margin-top: 50px; /* 👈 bajamos los videos hacia el centro */
+      margin-top: 50px;
     }
-
     iframe {
       width: 100%;
       height: 230px;
       border-radius: 15px;
       border: none;
       box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
-      transition: transform 0.3s;
     }
-
     iframe:hover {
       transform: scale(1.03);
     }
@@ -103,7 +92,6 @@
       from {opacity: 0; transform: translateY(20px);}
       to {opacity: 1; transform: translateY(0);}
     }
-
     /* Ocultar elementos */
     .oculto { display: none; }
   </style>
@@ -128,42 +116,45 @@
         </ul>
       </nav>
   </header>
-
   <main class="container">
     <h2 id="tituloNivel"></h2>
     <div class="videos" id="contenedorVideos"></div>
   </main>
 
   <script>
-  // ==========================
-  // 📌 Manejo de nivel detectado
-  // ==========================
-  let nivel = localStorage.getItem("nivelFrances");
-
+  let nivel = localStorage.getItem("nivelIngles");
   let titulo = document.getElementById("tituloNivel");
   let contenedor = document.getElementById("contenedorVideos");
 
   let videosPorNivel = {
     "A1": [
-      "https://www.youtube.com/embed/mRrV-ezwaEA?si=DBTyk5uwGeNl7-oN",
-      "https://www.youtube.com/embed/hzaxYyLDpGw?si=7MYJDWJTmzeo8_cI"
+      "https://www.youtube.com/embed/nhzjGKXY5QA?si=19Xg0tupIpCkQtvC",
+      "https://www.youtube.com/embed/Z6GGAQOMX8c?si=MPdKY5n4uBYyYFs_"
     ],
     "A2": [
-      "https://www.youtube.com/embed/rz8_NB9wUTM",
-      "https://www.youtube.com/embed/L7xqN2exKfI"
+      "https://www.youtube.com/embed/cUSZUNBxVZw?si=O7wQciuclDdKyFsf",
+      "https://www.youtube.com/embed/eLIRhBAEd5M?si=q3jMhizhZW6yLxSU"
     ],
     "B1": [
-      "https://www.youtube.com/embed/3HhJHhC0O6M",
-      "https://www.youtube.com/embed/x0iX1JpX1no"
+      "https://www.youtube.com/embed/fYt3Oc0s8Dc",
+      "https://www.youtube.com/embed/7YwYgJ0bK2E"
     ],
     "B2": [
-      "https://www.youtube.com/embed/3oNwE1r7Qp0",
-      "https://www.youtube.com/embed/Fo0j7yQ3qsk"
+      "https://www.youtube.com/embed/atlkq1wzSpE",
+      "https://www.youtube.com/embed/psDZc7jSBrQ"
+    ],
+    "C1": [
+      "https://www.youtube.com/embed/DKnl0q6lS6w",
+      "https://www.youtube.com/embed/H1DlX8Exz0U"
+    ],
+    "C2": [
+      "https://www.youtube.com/embed/hxTX6HRfyFo",
+      "https://www.youtube.com/embed/MuD4Rmtlv_8"
     ]
   };
 
   if (nivel) {
-    titulo.textContent = "Nivel de Frances detectado: " + nivel;
+    titulo.textContent = "Nivel de Inglés detectado: " + nivel;
   } else {
     titulo.textContent = "No se detectó tu nivel 😢";
   }
@@ -175,7 +166,6 @@
       contenedor.appendChild(iframe);
     });
   }
-
   // ==========================
   // 📌 Manejo de login/register
   // ==========================
@@ -221,6 +211,6 @@
     usuario = null;
     actualizarMenu();
   });
-</script>
+  </script>
 </body>
 </html>

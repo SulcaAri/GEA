@@ -164,12 +164,32 @@
         <input type="radio" name="q5" value="0"> ¿Qué hora es? <br>
       </div>
 
+      <div class="question">
+        <label>6. ¿Cuál es la traducción correcta de <b>"Merci beaucoup"</b>?</label>
+        <input type="radio" name="q6" value="1"> Muchas gracias <br>
+        <input type="radio" name="q6" value="0"> De nada <br>
+        <input type="radio" name="q6" value="0"> Buenas noches <br>
+      </div>
+
+      <div class="question">
+        <label>7. ¿Cómo se dice <b>"libro"</b> en francés?</label>
+        <input type="radio" name="q7" value="0"> stylo <br>
+        <input type="radio" name="q7" value="1"> livre <br>
+        <input type="radio" name="q7" value="0"> chaise <br>
+      </div>
+
+      <div class="question">
+        <label>8. ¿Qué significa la palabra <b>"École"</b>?</label>
+        <input type="radio" name="q8" value="0"> Iglesia <br>
+        <input type="radio" name="q8" value="0"> Trabajo <br>
+        <input type="radio" name="q8" value="1"> Escuela <br>
+      </div>
+
       <button type="button" onclick="calcularNivel()">Ver Resultado</button>
     </form>
 
     <div id="result"></div>
 
-    <!-- Botón final -->
     <!-- Botón final -->
     <div id="final">
      <button type="button" onclick="window.location.href='youtufrances.html'">Ir a clases ➡</button>
@@ -184,13 +204,13 @@
     respuestas.forEach(r => total += parseInt(r.value));
 
     let nivel = "";
-    if (total <= 2) nivel = "A1";
-    else if (total == 3) nivel = "A2";
-    else if (total == 4) nivel = "B1";
-    else if (total == 5) nivel = "B2";
+    if (total <= 3) nivel = "A1";
+    else if (total <= 5) nivel = "A2";
+    else if (total <= 7) nivel = "B1";
+    else if (total == 8) nivel = "B2";
 
-    document.getElementById('result').innerHTML = 
-      "✅ Tu puntaje es " + total + "/5 → Nivel estimado: <b>" + nivel + "</b>";
+    document.getElementById('result').innerHTML =
+      "✅ Tu puntaje es " + total + "/8 → Nivel estimado: <b>" + nivel + "</b>";
 
     // Guardar en localStorage
     localStorage.setItem("nivelFrances", nivel);

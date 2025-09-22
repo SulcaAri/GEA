@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Contáctanos - 🌍GlobeWay">
   <title>Contacto - GlobeWay</title>
+<!-- ✅ Bootstrap CSS (necesario para que funcionen los modales) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/estilos-comunes.css">
   <style>
     :root {
@@ -233,17 +235,47 @@
       gap: 8px;
       padding: 10px;
     }
+
+      footer {
+        background: #0d509c;
+        color: white;
+        text-align: center;
+        padding: 2rem 1rem;
+      }
+
+      footer img {
+        height: 40px;
+        margin-bottom: 10px;
+      }
+
+      footer p {
+        font-size: 0.95rem;
+        margin: 0;
+      }
+
+      /* Para mostrar/ocultar elementos del menú */
+      .oculto {
+        display: none !important;
+      }
+
+      /* Contenedor de los botones en fila */
+      .encuestas-contenedor {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-top: 3rem;
+      }
   </style>
 </head>
 <body>
 <header>
   <div class="logo">
-    <img src="imagenes/logo.jpg" alt="GlobeWay" style="width:50px; height:50px; border-radius:50%; vertical-align:middle; margin-right:8px;">
+    <img src="imagenes/logo.jpg" alt="GlobeWay"
+         style="width:50px; height:50px; border-radius:50%; margin-right:8px;">
     GlobeWay
   </div>
-  <!-- Botón hamburguesa -->
   <div class="menu-toggle" id="menu-toggle">☰</div>
-  <!-- Menú -->
   <nav>
     <ul id="menu">
       <li><a href="index.html">Inicio</a></li>
@@ -251,21 +283,16 @@
       <li><a href="Cursosdeidiomas.html">Cursos de Idiomas</a></li>
       <li><a href="Blog.html">Blog</a></li>
       <li><a href="Contactos.html">Contactos</a></li>
-      <!-- Botones de login/register y usuario -->
-        <li id="nav-login">
-          <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#loginModal">Iniciar sesión</a>
-        </li>
-        <li id="nav-register">
-          <a href="#" class="btn registro" data-bs-toggle="modal" data-bs-target="#registerModal">Registrarse</a>
-        </li>
-        <li id="nav-user" class="oculto">
-          <span id="user-name" style="margin-right: 10px;"></span>
-          <a href="#" class="btn btn-sm btn-outline-danger" id="btn-logout">Cerrar sesión</a>
-        </li>
-      </ul>
-    </nav>
-  </header>
-  <div style="margin-top:120px;"></div>
+      <li id="nav-login"><a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#loginModal">Iniciar sesión</a></li>
+      <li id="nav-register"><a href="#" class="btn registro" data-bs-toggle="modal" data-bs-target="#registerModal">Registrarse</a></li>
+      <li id="nav-user" class="oculto">
+        <span id="user-name" style="margin-right:10px;"></span>
+        <a href="#" class="btn btn-sm btn-outline-danger" id="btn-logout">Cerrar sesión</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+<div style="margin-top:120px;"></div>
     <section id="contacto" style="max-width: 700px; margin: 40px auto; padding: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f7ff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); color: #003366;">
   <h2 style="text-align: center; color: #FF6600; margin-bottom: 30px; font-weight: 700; font-size: 2.5rem;">Contacto</h2>
 
@@ -408,94 +435,67 @@
   </div>
 </section>
 
-<!-- Modal de Registro -->
-  <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="registerModalLabel">Registro de Usuario</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-        </div>
-        <div class="modal-body">
-          <form id="registerForm">
-            <div class="mb-3">
-              <label for="registerName" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="registerName" required />
-            </div>
-            <div class="mb-3">
-              <label for="registerEmail" class="form-label">Correo Electrónico</label>
-              <input type="email" class="form-control" id="registerEmail" required />
-            </div>
-            <div class="mb-3">
-              <label for="registerPassword" class="form-label">Contraseña</label>
-              <input type="password" class="form-control" id="registerPassword" required />
-            </div>
-            <button type="submit" class="btn btn-success w-100">Registrarse</button>
-          </form>
-        </div>
-      </div>
+<!-- Modal de Login -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog"><div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
     </div>
-  </div>
+    <div class="modal-body">
+      <form id="loginForm">
+        <div class="mb-3">
+          <label for="loginEmail" class="form-label">Correo Electrónico</label>
+          <input type="email" class="form-control" id="loginEmail" required />
+        </div>
+        <div class="mb-3">
+          <label for="loginPassword" class="form-label">Contraseña</label>
+          <input type="password" class="form-control" id="loginPassword" required />
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#registerModal" data-bs-dismiss="modal">
+        ¿No tienes cuenta? Regístrate
+      </button>
+    </div>
+  </div></div>
+</div>
 
-  <!-- Bootstrap JS (bundle incluye Popper) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Modal de Registro -->
+<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+  <div class="modal-dialog"><div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="registerModalLabel">Registro de Usuario</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+    </div>
+    <div class="modal-body">
+      <form id="registerForm">
+        <div class="mb-3">
+          <label for="registerName" class="form-label">Nombre</label>
+          <input type="text" class="form-control" id="registerName" required />
+        </div>
+        <div class="mb-3">
+          <label for="registerEmail" class="form-label">Correo Electrónico</label>
+          <input type="email" class="form-control" id="registerEmail" required />
+        </div>
+        <div class="mb-3">
+          <label for="registerPassword" class="form-label">Contraseña</label>
+          <input type="password" class="form-control" id="registerPassword" required />
+        </div>
+        <button type="submit" class="btn btn-success w-100">Registrarse</button>
+      </form>
+    </div>
+  </div></div>
+</div>
 
-  <!-- Tus scripts externos (asegúrate de tener estos archivos en /js) -->
-  <script src="js/login-menu.js" defer></script>
-  <script>
-  // Manejo del menú hamburguesa//
-  document.getElementById("menu-toggle").addEventListener("click", function() {
-    document.getElementById("menu").classList.toggle("show");
-    });
-  // Manejo simple del formulario (previene envío real para demo)
-  document.getElementById('contactForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    alert('Gracias por contactarnos, responderemos pronto.');
-    this.reset();
-  });
+<footer>
+  <p>🌍 GlobeWay — Conectando culturas, creando experiencias.</p>
+</footer>
 
-  // Sistema de calificación con estrellas
-  const stars = document.querySelectorAll('#stars span');
-  const ratingResult = document.getElementById('ratingResult');
-  let currentRating = 0;
-
-  stars.forEach(star => {
-    star.addEventListener('click', () => {
-      currentRating = star.getAttribute('data-value');
-      updateStars(currentRating);
-      ratingResult.textContent = `Has calificado con ${currentRating} estrella${currentRating > 1 ? 's' : ''}. ¡Gracias!`;
-    });
-    star.addEventListener('mouseover', () => {
-      updateStars(star.getAttribute('data-value'));
-    });
-    star.addEventListener('mouseout', () => {
-      updateStars(currentRating);
-    });
-  });
-
-  function updateStars(rating) {
-    stars.forEach(star => {
-      star.textContent = star.getAttribute('data-value') <= rating ? '★' : '☆';
-      star.style.color = star.getAttribute('data-value') <= rating ? '#FF6600' : '#aaa';
-      star.style.transition = 'color 0.3s ease';
-    });
-  }
-  // Detectar scroll hacia abajo para ocultar el menú
-  let lastScroll = 0;
-  const header = document.querySelector("header");
-  window.addEventListener("scroll", () => {
-    let currentScroll = window.pageYOffset;
-    if (currentScroll > lastScroll) {
-      // Bajando → ocultar menú
-      header.classList.add("hidden");
-    } else {
-      // Subiendo → mostrar menú
-      header.classList.remove("hidden");
-    }
-    lastScroll = currentScroll;
-  });
-</script>
+<!-- ✅ Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/login-menu.js" defer></script>
 </body>
 </html>
-
-

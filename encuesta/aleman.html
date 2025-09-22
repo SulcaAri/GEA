@@ -14,29 +14,25 @@
       padding: 20px;
       min-height: 100vh;
     }
-
     .container {
       background: #ffffff;
       padding: 30px;
       border-radius: 20px;
-      max-width: 650px;
+      max-width: 700px;
       width: 100%;
       box-shadow: 0px 8px 20px rgba(0,0,0,0.25);
       animation: fadeIn 1s ease;
       text-align: center;
     }
-
     .container img {
       max-width: 120px;
       margin-bottom: 15px;
     }
-
     h2 {
       text-align: center;
       color: #003366;
       margin-bottom: 25px;
     }
-
     .question {
       margin: 20px 0;
       padding: 15px;
@@ -45,25 +41,19 @@
       border-radius: 12px;
       text-align: left;
     }
-
     .question label {
       display: block;
       margin-bottom: 10px;
       font-weight: bold;
       color: #333333;
     }
-
-    /* Estilo de radio buttons */
     input[type="radio"] {
       accent-color: #0073e6;
       margin-right: 8px;
     }
-
     input[type="radio"]:hover {
       cursor: pointer;
     }
-
-    /* Botón de resultados */
     button {
       background: #ff6600;
       color: #ffffff;
@@ -78,14 +68,11 @@
       font-weight: bold;
       transition: all 0.3s ease;
     }
-
     button:hover {
       background: #e05500;
       transform: scale(1.05);
       box-shadow: 0 6px 15px rgba(0,0,0,0.2);
     }
-
-    /* Resultado */
     #result {
       margin-top: 25px;
       font-weight: bold;
@@ -97,25 +84,19 @@
       background: #e6f2ff;
       border: 2px solid #0073e6;
     }
-
-    /* Botón final */
     #final {
       display: none;
       text-align: center;
       margin-top: 25px;
     }
-
     #final button {
       background: #0073e6;
       color: white;
       font-size: 18px;
     }
-
     #final button:hover {
       background: #003366;
     }
-
-    /* Animación */
     @keyframes fadeIn {
       from {opacity: 0; transform: translateY(20px);}
       to {opacity: 1; transform: translateY(0);}
@@ -124,7 +105,6 @@
 </head>
 <body>
   <div class="container">
-    <!-- Imagen arriba -->
     <img src="https://cdn-icons-png.flaticon.com/512/197/197571.png" alt="Bandera de Alemania">
     <h2>Formulario de Evaluación de Alemán</h2>
 
@@ -164,35 +144,57 @@
         <input type="radio" name="q5" value="0"> ¿Qué hora es? <br>
       </div>
 
+      <div class="question">
+        <label>6. ¿Cuál es la traducción de <b>"Buch"</b>?</label>
+        <input type="radio" name="q6" value="1"> Libro <br>
+        <input type="radio" name="q6" value="0"> Mesa <br>
+        <input type="radio" name="q6" value="0"> Gato <br>
+      </div>
+
+      <div class="question">
+        <label>7. Elige la forma correcta del verbo: <b>Wir ____ ins Kino.</b></label>
+        <input type="radio" name="q7" value="0"> geht <br>
+        <input type="radio" name="q7" value="1"> gehen <br>
+        <input type="radio" name="q7" value="0"> gehe <br>
+      </div>
+
+      <div class="question">
+        <label>8. Traduce la frase: <b>"Ich spreche ein bisschen Deutsch."</b></label>
+        <input type="radio" name="q8" value="0"> Yo no entiendo alemán. <br>
+        <input type="radio" name="q8" value="1"> Yo hablo un poco de alemán. <br>
+        <input type="radio" name="q8" value="0"> Yo escribo mucho en alemán. <br>
+      </div>
+
       <button type="button" onclick="calcularNivel()">Ver Resultado</button>
     </form>
 
     <div id="result"></div>
 
-    <!-- Botón final -->
     <div id="final">
-      <button type="button" onclick="window.location.href='resultado.html'">Empesar clases ➡</button>
+     <button type="button" onclick="window.location.href='youtualeman.html'">Ir a clases ➡</button>
     </div>
   </div>
-
   <script>
     function calcularNivel() {
       let form = document.forms['quizForm'];
       let total = 0;
       let respuestas = form.querySelectorAll('input[type="radio"]:checked');
-
       respuestas.forEach(r => total += parseInt(r.value));
 
       let nivel = "";
-      if (total <= 2) nivel = "A1 (Básico)";
-      else if (total == 3) nivel = "A2 (Elemental)";
-      else if (total == 4) nivel = "B1 (Intermedio)";
-      else if (total == 5) nivel = "B2 (Avanzado)";
+      if (total <= 2) nivel = "A1";
+      else if (total <= 3) nivel = "A2";
+      else if (total <= 5) nivel = "B1";
+      else if (total == 6) nivel = "B2";
+      else if (total == 7) nivel = "C1";
+      else if (total == 8) nivel = "C2";
 
-      document.getElementById('result').innerHTML = 
-        "✅ Tu puntaje es " + total + "/5 → Nivel estimado: <b>" + nivel + "</b>";
+      // Guardar el nivel en localStorage
+      localStorage.setItem("nivelAleman", nivel);
 
-      // Mostrar el botón final cuando termine
+      document.getElementById('result').innerHTML =
+        "✅ Tu puntaje es " + total + "/8 → Nivel estimado: <b>" + nivel + "</b>";
+
       document.getElementById('final').style.display = "block";
     }
   </script>

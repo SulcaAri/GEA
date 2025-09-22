@@ -27,6 +27,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));
   if (usuarioGuardado && usuarioGuardado.nombre) {
     mostrarUsuario(usuarioGuardado.nombre);
+  } else {
+    // 🚨 Si no hay usuario, pedimos login
+    alert("Debes iniciar sesión para continuar 🚪");
+    // Si tienes modal de login, puedes abrirlo automáticamente:
+    const loginModalEl = document.getElementById("loginModal");
+    if (loginModalEl) {
+      const loginModal = new bootstrap.Modal(loginModalEl);
+      loginModal.show();
+    }
   }
 
   // Iniciar sesión
@@ -71,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const usuario = {
-        nombre: email, // Usamos el correo como nombre
+        nombre: email, // se usa el correo como "nombre"
         email,
       };
 
@@ -91,6 +100,17 @@ document.addEventListener("DOMContentLoaded", () => {
     btnLogout.addEventListener("click", (e) => {
       e.preventDefault();
       cerrarSesion();
+      alert("Has cerrado sesión. Debes iniciar sesión de nuevo para continuar.");
     });
   }
+});
+
+// js/login-menu.js
+document.addEventListener("DOMContentLoaded", () => {
+  const menuToggle = document.getElementById("menu-toggle");
+  const menu = document.getElementById("menu");
+
+  menuToggle.addEventListener("click", () => {
+    menu.classList.toggle("show");
+  });
 });
